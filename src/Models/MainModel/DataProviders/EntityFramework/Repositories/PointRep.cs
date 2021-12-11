@@ -1,10 +1,5 @@
 ﻿using MainModel.Entities;
 using MainModel.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainModel.DataProviders.EntityFramework.Repositories
 {
@@ -13,7 +8,7 @@ namespace MainModel.DataProviders.EntityFramework.Repositories
         private readonly EfDbContext context;
         public PointRep(EfDbContext context) => this.context = context;
 
-        public IQueryable<Coordinate> Items => context.Coordinates;
+        public IQueryable<Point> Items => context.Points;
 
         public async Task DeleteAsync(Point point)
         {

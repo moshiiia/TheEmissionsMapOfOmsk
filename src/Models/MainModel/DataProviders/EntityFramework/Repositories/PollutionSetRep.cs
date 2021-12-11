@@ -1,10 +1,5 @@
 ﻿using MainModel.Entities;
 using MainModel.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MainModel.DataProviders.EntityFramework.Repositories
 {
@@ -13,7 +8,7 @@ namespace MainModel.DataProviders.EntityFramework.Repositories
         private readonly EfDbContext context;
         public PollutionSetRep(EfDbContext context) => this.context = context;
         public IQueryable<PollutionSet> Items => context.PollutionSets;
-        public IQueryable<PollutionSet> GetItemsByDate(DateTime dateTime) 
+        public IQueryable<PollutionSet> GetItemsByDate(DateTime dateTime)
             => Items.Where(p => p.DateTime == dateTime);
 
         public Task DeleteAsync(PollutionSet pollutionSet)

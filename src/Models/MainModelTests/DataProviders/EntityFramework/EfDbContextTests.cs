@@ -15,10 +15,13 @@ namespace MainModel.DataProviders.EntityFramework.Tests
         [TestMethod()]
         public void EfDbContextTest()
         {
-            EfDbContext context = new(EfProvider.SqLite); 
-            Assert.IsTrue(File.Exists(@"C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\src\Data\Map.db"));
-            Assert.IsTrue((new FileInfo(@"C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\src\Data\Map.db"))
-                .Length > 0);
+            EfDbContext context = new(EfProvider.SqLite);
+
+            //.Points.UpdateAsync();
+
+            //Assert.IsTrue(true);
+            //Assert.IsTrue((new FileInfo(@"C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\src\Data\Map.db"))
+            //    .Length > 0);
         }
     }
 }
