@@ -1,27 +1,19 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MainModel.DataProviders.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
-namespace MainModel.DataProviders.EntityFramework.Tests
+namespace MainModel.DataProviders.EntityFramework.Tests;
+
+[TestClass()]
+public class EfDbContextTests
 {
-    [TestClass()]
-    public class EfDbContextTests
+    [TestMethod()]
+    public void EfDbContextTest()
     {
-        [TestMethod()]
-        public void EfDbContextTest()
-        {
-            EfDbContext context = new(EfProvider.SqLite);
+        EfDbContext context = new(EfProvider.SqLite);
 
-            //.Points.UpdateAsync();
+        //.Points.UpdateAsync();
 
-            //Assert.IsTrue(true);
-            //Assert.IsTrue((new FileInfo(@"C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\src\Data\Map.db"))
-            //    .Length > 0);
-        }
+        //Assert.IsTrue(true);
+        //Assert.IsTrue((new FileInfo(@"C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\src\Data\Map.db"))
+        //    .Length > 0);
     }
 }

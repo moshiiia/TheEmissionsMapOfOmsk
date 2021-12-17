@@ -1,4 +1,5 @@
-﻿namespace MainModel.Entities;
+﻿
+namespace MainModel.Entities;
 public class Coordinate
 {
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MainModel.Entities.Enums;
 
 namespace MainModel.Entities;
 
@@ -11,6 +7,9 @@ namespace MainModel.Entities;
     public Guid Id { get; init; }
     public string Name { get; set; } = null!;
     public string? Description { get; set; } //описание 
+
+    public MeasureUnit MeasureUnit { get; set; } = MeasureUnit.Noname;
+
     public IList<PollutionSet> PollutionSets { get; set; } = new List<PollutionSet>(); //загрязнения в точках
 
 
