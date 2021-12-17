@@ -25,7 +25,7 @@ public class EfDbContext : DbContext
                 throw new NotSupportedException("В работе");
             case EfProvider.SqLite:
                 builder.UseSqlite(
-                    @"Data Source = Map.db");
+                   @"Data Source = C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\src\Data\Map.db");
                 return;
             default:
                 throw new NotSupportedException("Что-то пошло не так!");

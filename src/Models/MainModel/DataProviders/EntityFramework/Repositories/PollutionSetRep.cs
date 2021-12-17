@@ -11,18 +11,29 @@ public class PollutionSetRep : IPollutionSet
     public IQueryable<PollutionSet> GetItemsByDate(DateTime dateTime)
         => Items.Where(p => p.DateTime == dateTime);
 
-    public Task DeleteAsync(PollutionSet pollutionSet)
+    public async Task DeleteAsync(PollutionSet pollutionSet)
     {
-        throw new NotImplementedException();
+        context.Remove(pollutionSet);
+        await context.SaveChangesAsync();
     }
 
-    public Task<PollutionSet> GetPollutionSetAsync(Guid id)
+    public Task<PollutionSet?> GetPollutionSetAsync(Guid id) => Task.Run(() => Items.FirstOrDefault(p => p.Id == id));
+
+    public async Task UpdateAsync(PollutionSet pollutionSet)
     {
-        throw new NotImplementedException();
+        if (pollutionSet.Id == default)
+        {
+            context.Add(pollutionSet);
+        }
+        else
+        {
+            if ((await GetPollutionSetAsync(pollutionSet.Id)) == null)
+                context.Add(pollutionSet);
+            else
+                context.Update(pollutionSet);
+        }
+        await context.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(PollutionSet pollutionSet)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

@@ -2,14 +2,18 @@
 using MainModel.Entities.Enums;
 using ParsersConsole;
 
-var list = Parsers.NumLatLonVal_CoorPn(@"D:\Downloads\Точки_отбора_ОМСК_2013_с_координатами_и_пылевая_нагрузка\points.txt");
+var list = Parsers.NumLatLonVal_CoorPn(@"C:\Users\Root\source\repos\TheEmisssionsMapOfOmsk\materials\points.txt");
 
 var dm = DataManager.Set(EfProvider.SqLite);
 
-var pol = new Pollution() {
+
+
+var pol = new Pollution()
+{
     Id = Guid.NewGuid(),
-    Name = "Пылевое загрязнение", 
-    MeasureUnit = MeasureUnit.mg_m2};
+    Name = "Пылевое загрязнение",
+    MeasureUnit = MeasureUnit.mg_m2
+};
 
 await dm.Pollution.UpdateAsync(pol);
 foreach (var (coor, pn) in list)
@@ -23,6 +27,8 @@ foreach (var (coor, pn) in list)
             Owner = Owner.Turkova,
             Coordinate = coor
         },
-        Pollution = pol
+        Pollution = pol,
+        Owner = Owner.Turkova
     });
 }
+Console.WriteLine("ldsfjodigvjdg");
