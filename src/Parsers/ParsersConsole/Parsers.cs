@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using MainModel.Entities;
-using MainModel.Entities.Enums;
 
 namespace ParsersConsole;
 
@@ -26,7 +25,7 @@ public static class Parsers
                 double lon = double.Parse(unitsStrings[2], CultureInfo.InvariantCulture);
                 double pn = double.Parse(unitsStrings[3], CultureInfo.InvariantCulture);
 
-                Coordinate coor = new Coordinate { Latitude = lat, Longitude = lon };
+                Coordinate coor = new() { Latitude = lat, Longitude = lon };
 
                 result.Add(new ValueTuple<Coordinate, double>
                 {

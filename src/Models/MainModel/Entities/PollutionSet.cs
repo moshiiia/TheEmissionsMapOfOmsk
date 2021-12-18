@@ -1,6 +1,4 @@
-﻿using MainModel.Entities.Enums;
-
-namespace MainModel.Entities;
+﻿namespace MainModel.Entities;
 
 public class PollutionSet : EntityBase
 {

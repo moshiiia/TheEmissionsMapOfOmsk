@@ -35,6 +35,6 @@
         </Grid>
         <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="133,178,0,0" VerticalAlignment="Top"
                 Command="{Binding SetDataAsyncCommand}"
-                CommandParameter="{Binding ElementName=Table,Path=SelectedItems}"/>
+                CommandParameter="{Binding ElementName=Table, Path=SelectedItem}"/>
     </Grid>
 </Window>

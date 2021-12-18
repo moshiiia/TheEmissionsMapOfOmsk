@@ -1,5 +1,4 @@
-﻿using MainModel.Entities;
-using MainModel.Entities.Enums;
+﻿using MainModel.Entities.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests;
