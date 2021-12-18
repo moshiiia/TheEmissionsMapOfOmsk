@@ -2,9 +2,8 @@
 
 namespace MainModel.Entities;
 
-   public class Pollution
-    {
-    public Guid Id { get; init; }
+public class Pollution : EntityBase
+{
     public string Name { get; set; } = null!;
     public string? Description { get; set; } //описание 
 

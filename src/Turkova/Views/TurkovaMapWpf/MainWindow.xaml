@@ -16,8 +16,15 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <DataGrid ItemsSource="{Binding PollutionSets}">
-                
+            <DataGrid  x:Name="Table" 
+                       ItemsSource="{Binding Points}" 
+                       AutoGenerateColumns="False" 
+                       IsReadOnly="True" SelectionChanged="Table_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="0000000" Binding="{Binding Coordinate}"/>
+                    <DataGridTextColumn Header="000110000" Binding="{Binding PollutionSet.Amount}"/>
+                    <DataGridTextColumn Header="000110000" Binding="{Binding PollutionSet.DateTime}"/>
+                </DataGrid.Columns>
             </DataGrid>
         </Grid>
         <Grid Grid.Column="1">
@@ -26,5 +33,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions> 
         </Grid>
+        <Button Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="133,178,0,0" VerticalAlignment="Top"
+                Command="{Binding SetDataAsyncCommand}"
+                CommandParameter="{Binding ElementName=Table,Path=SelectedItems}"/>
     </Grid>
 </Window>

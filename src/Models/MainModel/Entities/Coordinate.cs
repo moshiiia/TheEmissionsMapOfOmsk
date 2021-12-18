@@ -1,10 +1,12 @@
 ﻿
 namespace MainModel.Entities;
-public class Coordinate
+public class Coordinate : EntityBase
 {
-
-    public Guid Id { get; init; }
     public double Latitude { get; set; } //широта
     public double Longitude { get; set; } //долгота
+
+    public override string ToString() =>Latitude.ToString()+ "°, " + Longitude.ToString() + "°";
+
+
 }
 

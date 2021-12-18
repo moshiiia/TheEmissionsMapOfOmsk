@@ -1,4 +1,5 @@
 ﻿using MainModel.Entities;
+using Microsoft.EntityFrameworkCore;
 using MainModel.Repositories;
 
 namespace MainModel.DataProviders.EntityFramework.Repositories;
@@ -8,7 +9,7 @@ public class PointRep : IPoint
     private readonly EfDbContext context;
     public PointRep(EfDbContext context) => this.context = context;
 
-    public IQueryable<Point> Items => context.Points;
+    public IQueryable<Point> Items => context.Points.Include(p => p.PollutionSet).Include(p => p.Coordinate);
 
     public async Task DeleteAsync(Point point)
     {

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Models\MainModel\MainModel.csproj" />
+    <ProjectReference Include="..\..\Turkova\CalculationModule\TurkovaCalculation\TurkovaCalculation.csproj" />
     <ProjectReference Include="..\ViewModelBase\ViewModelBase.csproj" />
   </ItemGroup>
 

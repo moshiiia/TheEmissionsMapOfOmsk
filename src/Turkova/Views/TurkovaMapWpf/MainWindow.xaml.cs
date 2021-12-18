@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ViewModels;
+using WpfLibrary;
 
 namespace TurkovaMapWpf
 {
@@ -21,10 +22,17 @@ namespace TurkovaMapWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TurkovaViewModel model; 
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = new TurkovaViewModel();
+            model=DataContext as TurkovaViewModel?? throw new Exception();
+            model.handler = new ErrorHandle();
+        }
+
+        private void Table_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            model.SetDataAsyncCommand.RaiseCanExecuteChanged();
         }
     }
 }

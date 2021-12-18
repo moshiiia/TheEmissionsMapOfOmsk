@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Models\MainModel\MainModel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\WpfLibrary\WpfLibrary.csproj" />
     <ProjectReference Include="..\..\..\ViewModels\ViewModels\ViewModels.csproj" />
     <ProjectReference Include="..\..\CalculationModule\TurkovaCalculation\TurkovaCalculation.csproj" />
   </ItemGroup>

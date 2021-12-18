@@ -18,17 +18,15 @@ var pol = new Pollution()
 await dm.Pollution.UpdateAsync(pol);
 foreach (var (coor, pn) in list)
 {
-    await dm.PollutionSet.UpdateAsync(new PollutionSet
+    await dm.Point.UpdateAsync(new Point
     {
-        Amount = pn,
-        DateTime = DateTime.Now,
-        Point = new Point
+        Coordinate = coor,
+        PollutionSet = new PollutionSet
         {
-            Owner = Owner.Turkova,
-            Coordinate = coor
+            Amount = pn,
+            Pollution = pol
         },
-        Pollution = pol,
         Owner = Owner.Turkova
     });
 }
-Console.WriteLine("ldsfjodigvjdg");
+Console.WriteLine("Done");
