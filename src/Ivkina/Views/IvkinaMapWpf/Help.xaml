@@ -1,0 +1,14 @@
+﻿<Window x:Class="IvkinaMapWpf.Help"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IvkinaMapWpf"
+        mc:Ignorable="d"
+        Title="Help" Height="450" Width="800" Background="#FFDAC1C1" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Canvas>
+        <Button Content="Close" Canvas.Left="658" Canvas.Top="379" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
+    </Canvas>
+
+</Window>
