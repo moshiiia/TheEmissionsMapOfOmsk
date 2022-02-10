@@ -4,14 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IvkinaMapWpf"
+        xmlns:gmaps="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
         mc:Ignorable="d"
-        Title="Main Window" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFDAC1C1">
-    <Canvas>
+        Title="Main Window" Height="567" Width="926" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFDAC1C1">
+    <Canvas Margin="0,0,0,-6">
         <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFA79999" FontWeight="Bold" FontSize="14"/>
         <Label Content="Menu" Background="#FFA79999" Width="221" Height="37" Foreground="#FF100780" FontWeight="Bold" FontSize="18" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
         <Button Content="Help" Canvas.Left="38" Canvas.Top="145" Height="41" Width="146" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
-        <Grid Height="312" Canvas.Left="221" Width="579" Background="White"/>
-        <Button Content="Graph" Canvas.Left="658" Canvas.Top="379" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" />
+
+        <Grid Height="430" Canvas.Left="221" Width="705" Background="White" RenderTransformOrigin="0.5,0.5">
+            <gmaps:GMapControl x:Name="gmap" Loaded="Map_load"/>
+
+        </Grid>
+
+        <Button Content="Graph" Canvas.Left="785" Canvas.Top="496" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" />
     </Canvas>
 
 </Window>

@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IvkinaMapWpf"
         mc:Ignorable="d"
-        Title="Help" Height="450" Width="800" Background="#FFDAC1C1" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Help" Height="567" Width="926" Background="#FFDAC1C1" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Canvas>
-        <Button Content="Close" Canvas.Left="658" Canvas.Top="379" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
+        <Button Content="Close" Canvas.Left="789" Canvas.Top="491" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
     </Canvas>
 
 </Window>
