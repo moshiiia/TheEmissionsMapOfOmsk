@@ -1,0 +1,14 @@
+﻿<Window x:Class="IvkinaMapWpf.DataBase"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IvkinaMapWpf"       
+        mc:Ignorable="d"
+        Title="Data base" Height="567" Width="926" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFDAC1C1">
+
+    <Canvas>
+        <Button Content="Close" Canvas.Left="789" Canvas.Top="491" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
+
+    </Canvas>
+</Window>

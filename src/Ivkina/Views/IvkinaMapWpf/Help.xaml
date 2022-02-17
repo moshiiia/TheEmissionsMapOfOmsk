@@ -7,8 +7,12 @@
         mc:Ignorable="d"
         Title="Help" Height="567" Width="926" Background="#FFDAC1C1" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
-    <Canvas>
-        <Button Content="Close" Canvas.Left="789" Canvas.Top="491" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
+    <Canvas Margin="33,0,0,0">
+        <Button Content="Close" Canvas.Left="751" Canvas.Top="494" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
+        <TextBlock Canvas.Left="25" TextWrapping="Wrap" Canvas.Top="10" Height="477" Width="576" Background="White" FontSize="16" FontWeight="Normal"/>
+        <Image Height="158" Canvas.Left="666" Canvas.Top="25" Width="170" OpacityMask="Black"/>
+        <Image Height="158" Canvas.Left="666" Canvas.Top="249" Width="170" OpacityMask="#FF171313"/>
+
     </Canvas>
 
 </Window>

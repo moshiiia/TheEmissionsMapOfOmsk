@@ -25,6 +25,10 @@ namespace IvkinaMapWpf
         public Window1()
         {
             InitializeComponent();
+            //gmap.Markers = new 
+            //{
+            //    new GMapMarker
+            //}
         }
 
         private void Map_load(object sender, EventArgs e) 
@@ -49,6 +53,12 @@ namespace IvkinaMapWpf
         {
             Help help = new Help();
             help.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            DataBase dataBase = new DataBase();
+            dataBase.Show();
         }
     }
 }

@@ -8,12 +8,14 @@
         mc:Ignorable="d"
         Title="Main Window" Height="567" Width="926" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFDAC1C1">
     <Canvas Margin="0,0,0,-6">
-        <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFA79999" FontWeight="Bold" FontSize="14"/>
+        <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click_1"/>
         <Label Content="Menu" Background="#FFA79999" Width="221" Height="37" Foreground="#FF100780" FontWeight="Bold" FontSize="18" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
         <Button Content="Help" Canvas.Left="38" Canvas.Top="145" Height="41" Width="146" Background="#FFA79999" FontWeight="Bold" FontSize="14" Click="Button_Click" />
 
         <Grid Height="430" Canvas.Left="221" Width="705" Background="White" RenderTransformOrigin="0.5,0.5">
-            <gmaps:GMapControl x:Name="gmap" Loaded="Map_load"/>
+            <gmaps:GMapControl x:Name="gmap" Loaded="Map_load">
+                
+            </gmaps:GMapControl>
 
         </Grid>
 
