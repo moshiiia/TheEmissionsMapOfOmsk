@@ -12,6 +12,7 @@ function init() {
   map.controls.remove('typeSelector'); // удаляем тип
   map.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
   map.controls.remove('rulerControl'); // удаляем контрол правил
+  //map.controls.remove('zoomControl'); // удаляем контрол зуммирования
 }
 
 ymaps.ready(init);

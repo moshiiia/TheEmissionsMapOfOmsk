@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+
+
 namespace IvkinaMapWpfApp
 {
     /// <summary>
@@ -23,7 +26,10 @@ namespace IvkinaMapWpfApp
         public MainWindow()
         {
             InitializeComponent();
+           // webBrowser.Address = "file:///C:/Users/Root/source/repos/TheEmissionsMapOfOmsk/src/Ivkina/Web/index.html";
+
         }
 
     }
+
 }
