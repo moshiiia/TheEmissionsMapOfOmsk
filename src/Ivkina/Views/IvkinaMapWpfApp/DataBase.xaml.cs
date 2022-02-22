@@ -10,31 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-
-
 
 namespace IvkinaMapWpfApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для DataBase.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DataBase : Window
     {
-        public MainWindow()
+        public DataBase()
         {
             InitializeComponent();
-           // webBrowser.Address = "file:///C:/Users/Root/source/repos/TheEmissionsMapOfOmsk/src/Ivkina/Web/index.html";
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DataBase dataBase = new DataBase();
-            dataBase.Show();
+            this.Close();
         }
     }
-
 }
