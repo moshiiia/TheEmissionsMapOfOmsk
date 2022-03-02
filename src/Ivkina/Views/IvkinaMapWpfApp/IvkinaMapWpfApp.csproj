@@ -2,15 +2,17 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows;net48</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf" Version="98.1.210" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="98.1.210" />
+    <ProjectReference Include="..\..\..\Map\MapControl\WPF\MapControl.WPF.csproj" />
+    <ProjectReference Include="..\..\..\Map\MapUiTools\WPF\MapUiTools.WPF.csproj" />
+    <ProjectReference Include="..\..\..\Models\MainModel\MainModel.csproj" />
+    <ProjectReference Include="..\..\..\ViewModels\ViewModels\ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

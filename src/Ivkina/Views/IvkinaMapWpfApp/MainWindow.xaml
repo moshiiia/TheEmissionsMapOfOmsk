@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+      
         xmlns:local="clr-namespace:IvkinaMapWpfApp"
         mc:Ignorable="d"
          Title="Main Window" Height="567" Width="926" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFDAC1C1">
@@ -16,7 +16,7 @@
         <Button Content="Graph" Canvas.Left="785" Canvas.Top="496" Height="25" Width="110" Background="#FFA79999" FontWeight="Bold" FontSize="14" />
         
         <Grid Height="398" Width="705" Canvas.Left="221">
-            <wpf:ChromiumWebBrowser x:Name="webBrowser" Address = "file:///C:/Users/Root/source/repos/TheEmissionsMapOfOmsk/src/Ivkina/Web/index.html"/>
+          
         </Grid>
 
     </Canvas>
