@@ -20,6 +20,7 @@ namespace ViewModels
                 }
             };
 
+            //pushpin content = загрязнение. из бд
             return item;
         }
     }

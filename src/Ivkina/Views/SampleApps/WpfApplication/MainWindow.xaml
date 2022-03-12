@@ -107,16 +107,17 @@
         <vm:IvkinaViewModel/>
     </Window.DataContext>
 
-    <Grid>
+   
+    <Grid Margin="208,10,0,126">
         <map:Map x:Name="map"
-                 MinZoomLevel="2" MaxZoomLevel="21" ZoomLevel="12" MouseWheelZoomDelta="1"
+                 MinZoomLevel="5" MaxZoomLevel="21" ZoomLevel="12" MouseWheelZoomDelta="1"
                  Center="55.001,73.4742"
                  MouseLeftButtonDown="MapMouseLeftButtonDown"
                  MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave="MapMouseLeave"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting">
 
-            <map:MapItemsControl ItemsSource="{Binding Polylines}"/>
+            <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
 
             <map:MapItemsControl x:Name="Points"
                 ItemsSource="{Binding Points}"
@@ -126,18 +127,18 @@
             <map:MapItemsControl ItemsSource="{Binding Pushpins}"
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}"/>
 
-            <map:Pushpin AutoCollapse="True" Location="65,-18" Content="Iceland"/>
-            <map:Pushpin AutoCollapse="True" Location="71,25" Content="Norway"/>
+            <!--<map:Pushpin AutoCollapse="True" Location="65,-18" Content="Iceland"/>
+            <map:Pushpin AutoCollapse="True" Location="71,25" Content="Norway"/>-->
             <map:Pushpin AutoCollapse="True" Location="35,33" Content="Cyprus"/>
-            <map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>
+            <!--<map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>-->
 
-            <map:MapPath Location="53.5,8.2" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
+            <!--<map:MapPath Location="53.5,8.2" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
                 <map:MapPath.Data>
                     <EllipseGeometry RadiusX="1852" RadiusY="1852"/>
                 </map:MapPath.Data>
-            </map:MapPath>
+            </map:MapPath>-->
 
-            <map:Pushpin AutoCollapse="True" Location="53.5,8.2" Content="N 53°30' E 8°12'"/>
+            <!--<map:Pushpin AutoCollapse="True" Location="53.5,8.2" Content="N 53°30' E 8°12'"/>-->
         </map:Map>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF">
@@ -194,6 +195,9 @@
                     </Binding>
                 </Button.Visibility>
             </Button>
+            
+            
+            <!--пример команды-->
             <Button Content="Button"
                     Command="{Binding TestCommand }"
                     CommandParameter="{Binding ElementName=Points, Path=Items}"/>
