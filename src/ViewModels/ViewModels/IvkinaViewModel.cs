@@ -26,7 +26,12 @@ namespace ViewModels
             TestCommand = new Command<IEnumerable>(
                 TestMethod, canExecute: _ => !isBusy) ;
             data = DataManager.Set(EfProvider.SqLite);
+
             Points = new ObservableCollection<PointItem>(
+                data.Point.Items.Where(i => i.Owner == Ivkina)
+                .Select(p => PointItem.GetPoint(p))); 
+            
+            Pushpins = new ObservableCollection<PointItem>(
                 data.Point.Items.Where(i => i.Owner == Ivkina)
                 .Select(p => PointItem.GetPoint(p)));
         }

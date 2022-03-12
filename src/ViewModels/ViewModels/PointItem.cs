@@ -7,6 +7,8 @@ namespace ViewModels
     {
         public string? Name { get; set; }
         public Location Location { get; set; } = null!;
+        public double Amount { get; set; }
+        public string bindingText { get; set; } = null!;
 
         static internal PointItem  GetPoint(Point point)
         {
@@ -17,11 +19,13 @@ namespace ViewModels
                 {
                     Latitude = point.Coordinate.Latitude,
                     Longitude = point.Coordinate.Longitude
-                }
+                },
+                Amount = point.PollutionSet.Amount
             };
-
-            //pushpin content = загрязнение. из бд
+           
             return item;
         }
+
+       
     }
 }

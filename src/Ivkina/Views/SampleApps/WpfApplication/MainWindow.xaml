@@ -65,10 +65,11 @@
                                     </Path.Data>
                                 </Path>
                                 <Grid Canvas.Left="15" Canvas.Top="-8">
-                                    <local:OutlinedText Margin="1" OutlineThickness="1.5" Text="{Binding Name}"
+                                    <local:OutlinedText Margin="2" OutlineThickness="1.5" Text="{Binding Name}"
                                                         Background="{Binding Background, RelativeSource={RelativeSource AncestorType=map:MapBase}}"/>
                                 </Grid>
                             </Canvas>
+                            
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -88,7 +89,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="map:MapItem">
-                            <map:Pushpin Content="{Binding Name}"
+                            <map:Pushpin Content="{Binding Amount}"
                                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
                         </ControlTemplate>
                     </Setter.Value>
@@ -128,9 +129,9 @@
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}"/>
 
             <!--<map:Pushpin AutoCollapse="True" Location="65,-18" Content="Iceland"/>
-            <map:Pushpin AutoCollapse="True" Location="71,25" Content="Norway"/>-->
+            <map:Pushpin AutoCollapse="True" Location="71,25" Content="Norway"/>
             <map:Pushpin AutoCollapse="True" Location="35,33" Content="Cyprus"/>
-            <!--<map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>-->
+            <map:Pushpin AutoCollapse="True" Location="28.25,-16.5" Content="Tenerife"/>-->
 
             <!--<map:MapPath Location="53.5,8.2" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
                 <map:MapPath.Data>
