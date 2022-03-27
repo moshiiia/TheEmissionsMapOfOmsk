@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SampleApplication"
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
         Title="XAML MapControl - WPF Sample Application" Height="600" Width="900"
-        Stylus.IsPressAndHoldEnabled="False">
+        Stylus.IsPressAndHoldEnabled="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -69,7 +69,7 @@
                                                         Background="{Binding Background, RelativeSource={RelativeSource AncestorType=map:MapBase}}"/>
                                 </Grid>
                             </Canvas>
-                            
+
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -108,8 +108,8 @@
         <vm:IvkinaViewModel/>
     </Window.DataContext>
 
-   
-    <Grid Margin="208,10,0,126">
+
+    <Grid Margin="208,10,0,142" Background="#FF9D9DA0">
         <map:Map x:Name="map"
                  MinZoomLevel="5" MaxZoomLevel="21" ZoomLevel="12" MouseWheelZoomDelta="1"
                  Center="55.001,73.4742"
@@ -196,12 +196,12 @@
                     </Binding>
                 </Button.Visibility>
             </Button>
-            
-            
+
+
             <!--пример команды-->
-            <Button Content="Button"
+            <!--<Button Content="Button"
                     Command="{Binding TestCommand }"
-                    CommandParameter="{Binding ElementName=Points, Path=Items}"/>
+                    CommandParameter="{Binding ElementName=Points, Path=Items}"/>-->
         </StackPanel>
 
         <local:OutlinedText
@@ -210,5 +210,16 @@
             Foreground="{Binding Foreground, ElementName=map}"
             HorizontalAlignment="Center" VerticalAlignment="Top"
             IsHitTestVisible="False"/>
+
+        <Canvas HorizontalAlignment="Left" Height="577" Margin="-208,0,0,0" VerticalAlignment="Top" Width="209" Background="#FF9D9DA0">
+            <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14"/>
+            <Label Content="Menu" Background="#FFB8B9CA" Width="209" Height="37" Foreground="Black" FontWeight="Bold" FontSize="18" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
+            <Button Content="Help" Canvas.Left="38" Canvas.Top="145" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14"/>
+        </Canvas>
+
+
+        <Canvas Margin="0,437,0,-145" Background="#FF9D9DA0">
+            <Button Content="Button" Canvas.Left="556" Canvas.Top="32" Height="20" Width="75"/>
+        </Canvas>
     </Grid>
 </Window>

@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <None Remove="BingMapsApiKey.txt" />
+      <None Remove="TEC.jpg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -35,5 +36,9 @@
     <ItemGroup Condition="'$(TargetFramework)'=='net48'">
         <Reference Include="System.Net.Http" />
         <Reference Include="System.Runtime.Caching" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="TEC.jpg" />
     </ItemGroup>
 </Project>
