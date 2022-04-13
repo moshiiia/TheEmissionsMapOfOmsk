@@ -9,6 +9,7 @@ namespace ViewModels
         public Location Location { get; set; } = null!;
         public double Amount { get; set; }
         public string bindingText { get; set; } = null!;
+        public int Num { get; set; } 
 
         static internal PointItem  GetPoint(Point point)
         {
@@ -20,7 +21,7 @@ namespace ViewModels
                     Latitude = point.Coordinate.Latitude,
                     Longitude = point.Coordinate.Longitude
                 },
-                Amount = point.PollutionSet.Amount
+                Num = point.Num
             };
            
             return item;

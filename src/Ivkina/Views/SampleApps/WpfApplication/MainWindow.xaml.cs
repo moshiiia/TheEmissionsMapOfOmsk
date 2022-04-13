@@ -144,5 +144,11 @@ namespace SampleApplication
             mapItem.IsSelected = !mapItem.IsSelected;
             e.Handled = true;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataBase dataBase = new DataBase();
+            dataBase.Show();
+        }
     }
 }

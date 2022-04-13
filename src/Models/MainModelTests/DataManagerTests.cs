@@ -16,6 +16,7 @@ public class DataManagerTests
         {
             Name = "Биофабрика,22",
             Owner = Owner.Ivkina,
+            Num=2,
             Coordinate = new MainModel.Entities.Coordinate {
                 Latitude = 54.992616,
                 Longitude = 73.453983 },
@@ -23,7 +24,7 @@ public class DataManagerTests
             {
                 Pollution = data.Pollution.Items.FirstOrDefaultAsync(p => p.Name == Pollution.Dust).Result ??
                 throw new Exception("Пыли нет"),
-                Amount = 105
+                Amount = 105,
             }
     }).Wait();
 
@@ -31,6 +32,7 @@ public class DataManagerTests
         {
             Name = "Парковая,15",
             Owner = Owner.Ivkina,
+            Num = 3,
             Coordinate = new MainModel.Entities.Coordinate {
                 Latitude = 55.019382,
                 Longitude = 73.574555
@@ -47,6 +49,7 @@ public class DataManagerTests
         {
             Name = "Луговая,3а",
             Owner = Owner.Ivkina,
+            Num = 4,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.016678, Longitude = 73.549609
@@ -63,6 +66,7 @@ public class DataManagerTests
         {
             Name = "Луговая",
             Owner = Owner.Ivkina,
+            Num = 5,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.015929,
@@ -80,6 +84,7 @@ public class DataManagerTests
         {
             Name = "Левобережный разъезд,10",
             Owner = Owner.Ivkina,
+            Num = 6,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.009373,
@@ -97,6 +102,7 @@ public class DataManagerTests
         {
             Name = "Левобережный",
             Owner = Owner.Ivkina,
+            Num = 7,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.009006,
@@ -114,6 +120,7 @@ public class DataManagerTests
         {
             Name = "снт Молния",
             Owner = Owner.Ivkina,
+            Num = 8,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.006193,
@@ -131,6 +138,7 @@ public class DataManagerTests
         {
             Name = "10 лет октября 219к2Б",
             Owner = Owner.Ivkina,
+            Num = 9,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.004540,
@@ -148,6 +156,7 @@ public class DataManagerTests
         {
             Name = "снт Любитель",
             Owner = Owner.Ivkina,
+            Num = 10,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.040688,
@@ -165,6 +174,7 @@ public class DataManagerTests
         {
             Name = "Завертяева,36",
             Owner = Owner.Ivkina,
+            Num = 11,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.030132,
@@ -182,6 +192,7 @@ public class DataManagerTests
         {
             Name = "1-я Кожевенная",
             Owner = Owner.Ivkina,
+            Num = 12,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.014881,
@@ -199,6 +210,7 @@ public class DataManagerTests
         {
             Name = "снт Союз",
             Owner = Owner.Ivkina,
+            Num = 13,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.010147,
@@ -216,6 +228,7 @@ public class DataManagerTests
         {
             Name = "Клевое Озеро",
             Owner = Owner.Ivkina,
+            Num = 1,
             Coordinate = new MainModel.Entities.Coordinate
             {
                 Latitude = 55.000931,

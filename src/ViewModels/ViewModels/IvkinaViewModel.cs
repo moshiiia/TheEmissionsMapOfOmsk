@@ -14,6 +14,7 @@ namespace ViewModels
         public ObservableCollection<PointItem> Points { get; set; } = new();
         public ObservableCollection<PointItem> Pushpins { get; } = new();
         public ObservableCollection<PolylineItem> Polylines { get; } = new();
+        public ObservableCollection<DataGridCont> DataGridConts { get; } = new();
 
         private const Owner Ivkina = Owner.Ivkina;
         private readonly DataManager data;
@@ -34,7 +35,22 @@ namespace ViewModels
             Pushpins = new ObservableCollection<PointItem>(
                 data.Point.Items.Where(i => i.Owner == Ivkina)
                 .Select(p => PointItem.GetPoint(p)));
+
+            DataGridConts = new ObservableCollection<DataGridCont>(
+                data.Point.Items.Where(i => i.Owner == Ivkina)
+                .Select(p => new DataGridCont()
+                {
+                    Num = p.Num,
+                    PointName = p.Name,
+                    Latitude = p.Coordinate.Latitude,
+                    Longitude = p.Coordinate.Longitude,    
+                    PollutionName = p.PollutionSet.Pollution.Name,
+                    PollutionAmount = p.PollutionSet.Amount
+                }
+                ).OrderBy(y => y.Num));
         }
+
+
 
         private void TestMethod(IEnumerable? arg)
         {

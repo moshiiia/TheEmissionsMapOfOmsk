@@ -65,7 +65,7 @@
                                     </Path.Data>
                                 </Path>
                                 <Grid Canvas.Left="15" Canvas.Top="-8">
-                                    <local:OutlinedText Margin="2" OutlineThickness="1.5" Text="{Binding Name}"
+                                    <local:OutlinedText Margin="2" OutlineThickness="1.5" 
                                                         Background="{Binding Background, RelativeSource={RelativeSource AncestorType=map:MapBase}}"/>
                                 </Grid>
                             </Canvas>
@@ -89,7 +89,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="map:MapItem">
-                            <map:Pushpin Content="{Binding Amount}"
+                            <map:Pushpin Content="{Binding Num}"
                                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
                         </ControlTemplate>
                     </Setter.Value>
@@ -212,7 +212,7 @@
             IsHitTestVisible="False"/>
 
         <Canvas HorizontalAlignment="Left" Height="577" Margin="-208,0,0,0" VerticalAlignment="Top" Width="209" Background="#FF9D9DA0">
-            <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14"/>
+            <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
             <Label Content="Menu" Background="#FFB8B9CA" Width="209" Height="37" Foreground="Black" FontWeight="Bold" FontSize="18" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
             <Button Content="Help" Canvas.Left="38" Canvas.Top="145" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14"/>
         </Canvas>
