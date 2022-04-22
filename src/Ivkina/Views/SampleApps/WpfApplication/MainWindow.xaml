@@ -5,7 +5,7 @@
         xmlns:tools="clr-namespace:MapControl.UiTools;assembly=MapUiTools.WPF"
         xmlns:local="clr-namespace:SampleApplication"
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
-        Title="XAML MapControl - WPF Sample Application" Height="600" Width="900"
+        Title="XAML MapControl - WPF Sample Application" Height="580" Width="912"
         Stylus.IsPressAndHoldEnabled="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -109,7 +109,11 @@
     </Window.DataContext>
 
 
-    <Grid Margin="208,10,0,142" Background="#FF9D9DA0">
+    <Grid Margin="208,10,0,123" Background="#FF9D9DA0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="436*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
         <map:Map x:Name="map"
                  MinZoomLevel="5" MaxZoomLevel="21" ZoomLevel="12" MouseWheelZoomDelta="1"
                  Center="55.001,73.4742"
@@ -123,7 +127,8 @@
             <map:MapItemsControl x:Name="Points"
                 ItemsSource="{Binding Points}"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
-                                 SelectionMode="Extended"/>
+                                 SelectionMode="Extended"
+                                 SelectedItem=""/>
 
             <map:MapItemsControl ItemsSource="{Binding Pushpins}"
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}"/>
@@ -142,12 +147,12 @@
             <!--<map:Pushpin AutoCollapse="True" Location="53.5,8.2" Content="N 53°30' E 8°12'"/>-->
         </map:Map>
 
-        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF">
+        <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF" Height="7" Margin="0,0,0,1" Width="146">
             <TextBlock Margin="4,2" FontSize="10"
                        local:HyperlinkText.InlinesSource="{Binding MapLayer.Description, ElementName=map}"/>
         </Border>
 
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,6,0,0" Height="260">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,6,0,0" Height="260" Width="42">
             <tools:MapLayersMenuButton x:Name="mapLayersMenuButton"
                 Margin="2" ToolTip="Map Layers and Overlays"
                 Map="{Binding ElementName=map}">
@@ -205,21 +210,37 @@
         </StackPanel>
 
         <local:OutlinedText
-            x:Name="mouseLocation" Margin="4"
+            x:Name="mouseLocation" Margin="0,4,0,0"
             Background="{Binding Background, ElementName=map}"
             Foreground="{Binding Foreground, ElementName=map}"
             HorizontalAlignment="Center" VerticalAlignment="Top"
-            IsHitTestVisible="False"/>
+            IsHitTestVisible="False" Height="0" Width="0"/>
 
-        <Canvas HorizontalAlignment="Left" Height="577" Margin="-208,0,0,0" VerticalAlignment="Top" Width="209" Background="#FF9D9DA0">
+        <Canvas HorizontalAlignment="Left" Height="554" Margin="-208,0,0,0" VerticalAlignment="Top" Width="209" Background="#FF9D9DA0" Grid.RowSpan="2">
             <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
             <Label Content="Menu" Background="#FFB8B9CA" Width="209" Height="37" Foreground="Black" FontWeight="Bold" FontSize="18" HorizontalContentAlignment="Center" Margin="0,0,0,0"/>
             <Button Content="Help" Canvas.Left="38" Canvas.Top="145" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14"/>
         </Canvas>
 
+        <Canvas Margin="0,5,0,-123" Background="#FF9D9DA0" Grid.Row="1">
+            <Button Content="Button" Canvas.Left="547" Canvas.Top="104" Height="20" Width="75"/>
+            <CheckBox Content="1" Canvas.Left="35" Canvas.Top="20"/>
+            <CheckBox Content="2" Canvas.Left="80" Canvas.Top="20"/>
+            <CheckBox Content="3" Canvas.Left="125" Canvas.Top="20"/>
+            <CheckBox Content="4" Canvas.Left="170" Canvas.Top="20"/>
+            <CheckBox Content="5" Canvas.Left="215" Canvas.Top="20"/>
+            <CheckBox Content="6" Canvas.Left="260" Canvas.Top="20"/>
+            <CheckBox Content="7" Canvas.Left="305" Canvas.Top="20"/>
+            <CheckBox Content="8" Canvas.Left="350" Canvas.Top="20"/>
+            <CheckBox Content="9" Canvas.Left="395" Canvas.Top="20"/>
+            <CheckBox Content="10" Canvas.Left="440" Canvas.Top="20"/>
+            <CheckBox Content="11" Canvas.Left="485" Canvas.Top="20"/>
+            <CheckBox Content="12" Canvas.Left="530" Canvas.Top="20"/>
+            <CheckBox Content="13" Canvas.Left="575" Canvas.Top="20"/>
+            <Label Content="Points" Canvas.Left="35" Canvas.Top="-6" FontSize="14" FontWeight="SemiBold" Height="26" Width="58"/>
 
-        <Canvas Margin="0,437,0,-145" Background="#FF9D9DA0">
-            <Button Content="Button" Canvas.Left="556" Canvas.Top="32" Height="20" Width="75"/>
         </Canvas>
     </Grid>
+
+
 </Window>

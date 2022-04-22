@@ -10,6 +10,7 @@ namespace ViewModels
         public double Amount { get; set; }
         public string bindingText { get; set; } = null!;
         public int Num { get; set; } 
+        public bool IsSelected { get; set; } = true;
 
         static internal PointItem  GetPoint(Point point)
         {
