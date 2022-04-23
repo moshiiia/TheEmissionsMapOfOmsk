@@ -150,10 +150,5 @@ namespace SampleApplication
             DataBase dataBase = new DataBase();
             dataBase.Show();
         }
-
-        private void Points_Selected(object sender, RoutedEventArgs e)
-        {
-            
-        }
     }
 }

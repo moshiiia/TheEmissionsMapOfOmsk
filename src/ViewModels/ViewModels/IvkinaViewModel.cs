@@ -11,6 +11,7 @@ namespace ViewModels
 {
     public class IvkinaViewModel : ViewModelBase.ViewModelBase
     {
+
         public ObservableCollection<PointItem> Points { get; set; } = new();
         public ObservableCollection<PointItem> Pushpins { get; } = new();
         public ObservableCollection<PolylineItem> Polylines { get; } = new();
@@ -24,8 +25,9 @@ namespace ViewModels
 
         public IvkinaViewModel()
         {
-            TestCommand = new Command<IEnumerable>(
-                TestMethod, canExecute: _ => !isBusy) ;
+            //TestCommand = new Command<IEnumerable>(
+            //    TestMethod, canExecute: _ => !isBusy);
+           
             data = DataManager.Set(EfProvider.SqLite);
 
             Points = new ObservableCollection<PointItem>(
@@ -52,29 +54,30 @@ namespace ViewModels
 
 
 
-        private void TestMethod(IEnumerable? arg)
-        {
-            isBusy = true;
-            try
-            {
-                var items = arg as PointItem[] ??
-                            arg?.Cast<PointItem>().ToArray() ??
-                            throw new ArgumentNullException(nameof(arg));
-                foreach (var item in items)
-                {
-                    item.Name = "xo\nfog";
-                }
+        //private void TestMethod(IEnumerable? arg)
+        //{
+        //    isBusy = true;
+        //    try
+        //    {
+        //        var items = arg as PointItem[] ??
+        //                    arg?.Cast<PointItem>().ToArray() ??
+        //                    throw new ArgumentNullException(nameof(arg));
+        //        foreach (var item in items)
+        //        {
+        //            item.Name = "xo\nfog";
+        //        }
 
-                Points = new ObservableCollection<PointItem>(items);
-                OnPropertyChanged(nameof(Points));
-            }
-            finally
-            {
-                isBusy = false;
-            }
-        }
+        //        Points = new ObservableCollection<PointItem>(items);
+        //        OnPropertyChanged(nameof(Points));
+        //    }
+        //    finally
+        //    {
+        //        isBusy = false;
+        //    }
+        //}
+        //public Command<IEnumerable> TestCommand { get; }
 
-        public Command<IEnumerable> TestCommand { get; }
+       
 
     }
 

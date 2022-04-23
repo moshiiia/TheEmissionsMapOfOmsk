@@ -26,13 +26,7 @@ namespace ViewModels
             _list.Add(item);
         }
 
-        public IEnumerable<PointItem> GetPoints()
-        {
-            foreach (PointItem item in _list)
-            {
-                yield return item;
-            }
-        }
+        public IEnumerable<PointItem> GetPoints() => _list;
 
         public void Delete(PointItem item)
         {

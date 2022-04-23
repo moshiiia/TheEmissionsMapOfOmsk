@@ -12,6 +12,25 @@ public class DataManagerTests
     public void InsertPointsTest()
     {
         DataManager data = DataManager.Set(EfProvider.SqLite);
+
+        data.Point.UpdateAsync(new MainModel.Entities.Point
+        {
+            Name = "Клевое Озеро",
+            Owner = Owner.Ivkina,
+            Num = 1,
+            Coordinate = new MainModel.Entities.Coordinate
+            {
+                Latitude = 55.000931,
+                Longitude = 73.4742044
+            },
+            PollutionSet = new MainModel.Entities.PollutionSet
+            {
+                Pollution = data.Pollution.Items.FirstOrDefaultAsync(p => p.Name == Pollution.Dust).Result ??
+                throw new Exception("Пыли нет"),
+                Amount = 117
+            }
+        }).Wait();
+
         data.Point.UpdateAsync(new MainModel.Entities.Point
         {
             Name = "Биофабрика,22",
@@ -224,23 +243,6 @@ public class DataManagerTests
             }
         }).Wait();
 
-        data.Point.UpdateAsync(new MainModel.Entities.Point
-        {
-            Name = "Клевое Озеро",
-            Owner = Owner.Ivkina,
-            Num = 1,
-            Coordinate = new MainModel.Entities.Coordinate
-            {
-                Latitude = 55.000931,
-                Longitude = 73.4742044
-            },
-            PollutionSet = new MainModel.Entities.PollutionSet
-            {
-                Pollution = data.Pollution.Items.FirstOrDefaultAsync(p => p.Name == Pollution.Dust).Result ??
-                throw new Exception("Пыли нет"),
-                Amount = 117
-            }
-        }).Wait();
         Assert.IsTrue(true);
     }
 
