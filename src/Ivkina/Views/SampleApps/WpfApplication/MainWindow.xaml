@@ -222,12 +222,19 @@
             <ListBox ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
-                        <CheckBox Content="{Binding Num}" IsChecked="{"/>
-                        
+                        <CheckBox Content="{Binding Num}"  Command="">
+                            <CheckBox.CommandParameter>
+                                <MultiBinding>
+                                    <Binding Path="Content"/>
+                                    <Binding Path="IsChecked"/>
+                                </MultiBinding>
+                            </CheckBox.CommandParameter>
+                        </CheckBox>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Label Content="Points" Canvas.Top="-3" FontWeight="SemiBold" FontSize="14"/>
+            <Label Content="Points. Select 2 or 3 points and press the Count-button:" Canvas.Top="-3" FontWeight="SemiBold" FontSize="14"/>
+            <Button Content="Count" Canvas.Left="530" Canvas.Top="55" Height="26" Width="131" Background="White" FontWeight="Bold" FontSize="14"/>
         </Canvas>
 
     </Grid>
