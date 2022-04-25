@@ -8,6 +8,11 @@ namespace ViewModels
 {
     public class CheckPoints 
     {
+
+        //проверка на добавление точек,если выбрано 2 или 3 button isenabled=true
+        //
+
+
         private readonly List<PointItem> _list;
 
         private readonly int _max;

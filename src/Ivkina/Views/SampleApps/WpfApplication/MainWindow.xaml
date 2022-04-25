@@ -18,7 +18,7 @@
                 <ResourceDictionary Source="MapLayers.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-                <local:MyConverter x:Key="myconv"/>
+            <local:MyConverter x:Key="myconv"/>
             
             <DataTemplate DataType="{x:Type vm:PolylineItem}">
                 <map:MapPolyline Locations="{Binding Locations}" Stroke="Red" StrokeThickness="3"/>
@@ -240,7 +240,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Label Content="Points. Select 2 or 3 points and press the Count-button:" Canvas.Top="-3" FontWeight="SemiBold" FontSize="14"/>
-            <Button Content="Count" Canvas.Left="530" Canvas.Top="55" Height="26" Width="131" Background="White" FontWeight="Bold" FontSize="14"/>
+            <Button Content="Count" IsEnabled="False" Canvas.Left="530" Canvas.Top="55" Height="26" Width="131" Background="White" FontWeight="Bold" FontSize="14"/>
         </Canvas>
 
     </Grid>
