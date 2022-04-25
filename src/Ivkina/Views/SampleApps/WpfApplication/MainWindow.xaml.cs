@@ -67,6 +67,8 @@ namespace SampleApplication
                     await cache.Clean();
                 };
             }
+
+            
         }
 
         partial void AddChartServerLayer();

@@ -1,20 +1,27 @@
 ﻿<Window
+        x:Class="SampleApplication.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:map="clr-namespace:MapControl;assembly=MapControl.WPF"
         xmlns:tools="clr-namespace:MapControl.UiTools;assembly=MapUiTools.WPF"
         xmlns:local="clr-namespace:SampleApplication"
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
-        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="SampleApplication.MainWindow"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         Title="XAML MapControl - WPF Sample Application" Height="580" Width="912"
         Stylus.IsPressAndHoldEnabled="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
+
     <Window.Resources>
+     
+        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MapLayers.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+                <local:MyConverter x:Key="myconv"/>
+            
             <DataTemplate DataType="{x:Type vm:PolylineItem}">
                 <map:MapPolyline Locations="{Binding Locations}" Stroke="Red" StrokeThickness="3"/>
             </DataTemplate>
@@ -218,13 +225,14 @@
             <Button Content="Help" Canvas.Left="38" Canvas.Top="145" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14"/>
         </Canvas>
 
+        
         <Canvas Margin="0,15,0,-123" Grid.Row="1" Background="#FFB8B9CA" >
             <ListBox ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
-                        <CheckBox Content="{Binding Num}"  Command="">
+                        <CheckBox Content="{Binding Num}">
                             <CheckBox.CommandParameter>
-                                <MultiBinding>
+                                <MultiBinding Converter="{StaticResource myconv}">
                                     <Binding Path="Content"/>
                                     <Binding Path="IsChecked"/>
                                 </MultiBinding>
