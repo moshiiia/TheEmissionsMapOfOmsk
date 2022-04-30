@@ -18,8 +18,6 @@
                 <ResourceDictionary Source="MapLayers.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <local:MyConverter x:Key="myconv"/>
-            
             <DataTemplate DataType="{x:Type vm:PolylineItem}">
                 <map:MapPolyline Locations="{Binding Locations}" Stroke="Red" StrokeThickness="3"/>
             </DataTemplate>
@@ -225,17 +223,14 @@
 
         
         <Canvas Margin="0,15,0,-123" Grid.Row="1" Background="#FFB8B9CA" >
-            <ListBox ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26">
+            <ListBox>
+                ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
-                        <CheckBox Content="{Binding Num}">
-                            <CheckBox.CommandParameter>
-                                <MultiBinding Converter="{StaticResource myconv}">
-                                    <Binding Path="Content"/>
-                                    <Binding Path="IsChecked"/>
-                                </MultiBinding>
-                            </CheckBox.CommandParameter>
-                        </CheckBox>
+                        <CheckBox 
+                            Content="{Binding Num}" 
+                            Command="{Binding AddPointCommand}"
+                            CommandParameter="{Binding Num }"/>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

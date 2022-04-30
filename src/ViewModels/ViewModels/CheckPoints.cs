@@ -9,10 +9,6 @@ namespace ViewModels
     public class CheckPoints 
     {
 
-        //проверка на добавление точек,если выбрано 2 или 3 button isenabled=true
-        //
-
-
         private readonly List<PointItem> _list;
 
         private readonly int _max;
@@ -23,7 +19,7 @@ namespace ViewModels
             _list = new(max);
         }
 
-        public void Add(PointItem item)
+        private void Add(PointItem item)
         {
             if (_list.Contains(item)) return;
             if (_list.Count == _max )
@@ -33,9 +29,15 @@ namespace ViewModels
 
         public IEnumerable<PointItem> GetPoints() => _list;
 
-        public void Delete(PointItem item)
+        private void Delete(PointItem item)
         {
             _list.Remove(item);
         }
+
+        public void AddOrDelete(PointItem point)
+        {
+            if (_list.Contains(point)) Delete(point); else Add(point);
+        }
+
     }
 }

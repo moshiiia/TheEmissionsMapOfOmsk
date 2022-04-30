@@ -20,6 +20,10 @@ public class Command<T> : ICommand
         _errorHandler = errorHandler;
     }
 
+    public Command()
+    {
+    }
+
     public bool CanExecute(T? parameter) => _canExecute?.Invoke(parameter) ?? true;
 
     public void Execute(T? parameter)

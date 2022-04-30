@@ -20,14 +20,18 @@ namespace ViewModels
         private const Owner Ivkina = Owner.Ivkina;
         private readonly DataManager data;
         public IErrorHandler? Handler { get; set; }
+        private CheckPoints checkPoints = new CheckPoints();
 
         private bool isBusy = false;
+        public Command<PointItem> AddPointCommand { get; }
 
         public IvkinaViewModel()
         {
             //TestCommand = new Command<IEnumerable>(
             //    TestMethod, canExecute: _ => !isBusy);
-           
+
+            AddPointCommand = new Command<PointItem>(AddPoint, null, Handler);
+             
             data = DataManager.Set(EfProvider.SqLite);
 
             Points = new ObservableCollection<PointItem>(
@@ -50,6 +54,13 @@ namespace ViewModels
                     PollutionAmount = p.PollutionSet.Amount
                 }
                 ).OrderBy(y => y.Num));
+        }
+
+        private void AddPoint(PointItem obj)
+        {
+            //PointItem? result = Points.FirstOrDefault(y => y.Num == obj);
+            if (obj == null) return;
+            checkPoints.AddOrDelete(obj);
         }
 
 
@@ -77,7 +88,8 @@ namespace ViewModels
         //}
         //public Command<IEnumerable> TestCommand { get; }
 
-       
+
+
 
     }
 
