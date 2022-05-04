@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ViewModels;
 
 namespace SampleApplication
 {
@@ -68,8 +69,11 @@ namespace SampleApplication
                 };
             }
 
-            
+            if (DataContext is IvkinaViewModel) model = (IvkinaViewModel)DataContext; 
         }
+
+        //model
+        IvkinaViewModel model;
 
         partial void AddChartServerLayer();
 
@@ -147,10 +151,15 @@ namespace SampleApplication
             e.Handled = true;
         }
 
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DataBase dataBase = new DataBase();
             dataBase.Show();
         }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e) =>
+            model?.RaiseCanCalculationCommand();
     }
 }

@@ -223,19 +223,20 @@
 
         
         <Canvas Margin="0,15,0,-123" Grid.Row="1" Background="#FFB8B9CA" >
-            <ListBox>
+            <ListBox
                 ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <CheckBox 
                             Content="{Binding Num}" 
-                            Command="{Binding AddPointCommand}"
-                            CommandParameter="{Binding Num }"/>
+                            IsChecked="{Binding IsSelected}" Click="CheckBox_Click"/>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Label Content="Points. Select 2 or 3 points and press the Count-button:" Canvas.Top="-3" FontWeight="SemiBold" FontSize="14"/>
-            <Button Content="Count" IsEnabled="False" Canvas.Left="530" Canvas.Top="55" Height="26" Width="131" Background="White" FontWeight="Bold" FontSize="14"/>
+            <Label Content="Points. Select 2 or 3 points and press the Count-button for calculation:" Canvas.Top="-3" FontWeight="SemiBold" FontSize="14"/>
+            <Button Content="Count" Canvas.Left="530" Canvas.Top="55" Height="26" Width="131" Background="White"
+                    FontWeight="Bold" FontSize="14" Command="{Binding CalculationCommand}" 
+                    ToolTip="Для проведения рассчетов выберите 2 или 3 точки из списка и нажмите на копку."/>
         </Canvas>
 
     </Grid>

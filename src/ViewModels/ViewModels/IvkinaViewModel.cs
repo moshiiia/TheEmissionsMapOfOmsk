@@ -12,7 +12,7 @@ namespace ViewModels
     public class IvkinaViewModel : ViewModelBase.ViewModelBase
     {
 
-        public ObservableCollection<PointItem> Points { get; set; } = new();
+        public ObservableCollection<PointItem> Points { get; set; }
         public ObservableCollection<PointItem> Pushpins { get; } = new();
         public ObservableCollection<PolylineItem> Polylines { get; } = new();
         public ObservableCollection<DataGridCont> DataGridConts { get; } = new();
@@ -20,18 +20,14 @@ namespace ViewModels
         private const Owner Ivkina = Owner.Ivkina;
         private readonly DataManager data;
         public IErrorHandler? Handler { get; set; }
-        private CheckPoints checkPoints = new CheckPoints();
-
+       
         private bool isBusy = false;
         public Command<PointItem> AddPointCommand { get; }
 
         public IvkinaViewModel()
         {
-            //TestCommand = new Command<IEnumerable>(
-            //    TestMethod, canExecute: _ => !isBusy);
-
-            AddPointCommand = new Command<PointItem>(AddPoint, null, Handler);
-             
+            CalculationCommand = new Command(AddCalculation,CanAddCalculation);
+            
             data = DataManager.Set(EfProvider.SqLite);
 
             Points = new ObservableCollection<PointItem>(
@@ -56,41 +52,24 @@ namespace ViewModels
                 ).OrderBy(y => y.Num));
         }
 
-        private void AddPoint(PointItem obj)
+        private bool CanAddCalculation() 
         {
-            //PointItem? result = Points.FirstOrDefault(y => y.Num == obj);
-            if (obj == null) return;
-            checkPoints.AddOrDelete(obj);
+            var checks = Points.Where(y => y.IsSelected).Count();
+            return checks is 2 or 3;
         }
 
+        private void AddCalculation()
+        {
+            var checks = Points.Where(y => y.IsSelected);
+            var count = checks.Count();
+            //переход в расчеты
+        }
 
+        public Command CalculationCommand { get; }
 
-        //private void TestMethod(IEnumerable? arg)
-        //{
-        //    isBusy = true;
-        //    try
-        //    {
-        //        var items = arg as PointItem[] ??
-        //                    arg?.Cast<PointItem>().ToArray() ??
-        //                    throw new ArgumentNullException(nameof(arg));
-        //        foreach (var item in items)
-        //        {
-        //            item.Name = "xo\nfog";
-        //        }
+        public void RaiseCanCalculationCommand() => CalculationCommand.RaiseCanExecuteChanged();
 
-        //        Points = new ObservableCollection<PointItem>(items);
-        //        OnPropertyChanged(nameof(Points));
-        //    }
-        //    finally
-        //    {
-        //        isBusy = false;
-        //    }
-        //}
-        //public Command<IEnumerable> TestCommand { get; }
-
-
-
-
+      
     }
 
 }

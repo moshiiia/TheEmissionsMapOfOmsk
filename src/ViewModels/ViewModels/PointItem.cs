@@ -9,8 +9,9 @@ namespace ViewModels
         public Location Location { get; set; } = null!;
         public double Amount { get; set; }
         public string bindingText { get; set; } = null!;
-        public int Num { get; set; } 
-        public bool IsSelected { get; set; } = true;
+        public int Num { get; set; }
+        public bool IsSelected { get; set; }
+       
 
         static internal PointItem  GetPoint(Point point)
         {
