@@ -61,8 +61,10 @@ namespace ViewModels
         private void AddCalculation()
         {
             var checks = Points.Where(y => y.IsSelected);
-            var count = checks.Count();
+            //var count = checks.Count(); 
             //переход в расчеты
+
+
         }
 
         public Command CalculationCommand { get; }

@@ -161,5 +161,11 @@ namespace SampleApplication
 
         private void CheckBox_Click(object sender, RoutedEventArgs e) =>
             model?.RaiseCanCalculationCommand();
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Help help = new Help();
+            help.Show();
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace IvkinaCalculation
         double fi; //угол в градусах
         double r; //расстояние
 
+
         public double CountFi(double fi) 
         {
             if (fi < 0) fi = fi + 360;
@@ -32,6 +33,7 @@ namespace IvkinaCalculation
             else throw new Exception();
         }
 
+
         public (double, double) GeoToPol(double latitude, double longitude) //преобразование координат
         { 
             double a = 6378.1370; //экваториальный радиус
@@ -51,5 +53,8 @@ namespace IvkinaCalculation
             fi =Math.Atan((y-yist)/(x-xist));
             return new(r, fi);
         }
+
+
+
     }
 }
