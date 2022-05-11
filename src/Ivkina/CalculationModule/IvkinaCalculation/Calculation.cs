@@ -38,6 +38,7 @@ namespace IvkinaCalculation
         { 
             double a = 6378.1370; //экваториальный радиус
             double b = 6356.8; //полярный радиус
+
             double xist = -48.96545; //координаты источника(ТЭЦ-5 г.Омск)
             double yist = -138.37523;
 
@@ -50,10 +51,65 @@ namespace IvkinaCalculation
             
             //переход от декарт. координат к полярным 
             r = Math.Sqrt(Math.Pow(x-xist,2)+Math.Pow(y-yist,2));
-            fi =Math.Atan((y-yist)/(x-xist));
+            fi =Math.Atan((y-yist)/(x-xist));  //радианы или градусы??
             return new(r, fi);
         }
 
+
+        ///////////////////////// ММ2 по 3-ем точкам
+        //public void CountMathModel2( List<PointItem> points)
+        //{
+
+        //    int mnk1 = 1000000;
+        //    double point1val, point2val, point3val; //кол-во загрязнения в точке
+        //    //передавать сюда точку из ListItem
+        //    //доставать ее координаты и загрязнение для рассчетов
+
+        //    //int mnk = 0;
+        //    //double Cp1, Cp2,Cp3;
+            //double q1, q2, q3; //q для рассчета
+            //double Q1, Q2, Q3; //Q итоговые
+            
+            //for (q1 = 0; q1 < 10000; q1++)
+            //{
+            //    for (q2 = 0; q2 < 10000; q2++)
+            //    {
+            //        for (q3 = 0; q3 < 10000; q3++)
+            //        {
+                        
+                           // double r1, fi1= GeoToPol(point1);
+                           // double r2, fi2 = GeoToPol(point2);
+                           // double r3, fi3 = GeoToPol(point3);
+                       
+                            //Cp1 = CountFi(RoseFunc(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-q1 / r1);
+                            //Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
+                            //Cp3 = CountFi(RoseFunc(fi3)) * q3 * Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
+
+                           // mnk = Math.Pow(Cp1 - point1val, 2) + (Cp2 - point2val, 2) + (Cp3 - point3val, 2);
+                        
+            //            if (mnk < mnk1)
+            //            {
+            //                mnk1 = mnk;
+            //                Q1 = q1;
+            //                Q2 = q2;
+            //                Q3 = q3;
+            //            }
+            //            mnk1 = 0;
+            //        }
+            //    }
+            //}
+
+            ////вторая часть расчет конкретных полей
+            
+
+
+        //}
+
+
+
+        /////Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel
+        //// вызываться будет либо Calc1 либо Calc2)
+        /////Функция отрисовки полей отельно и вызывается после Calc.
 
 
     }

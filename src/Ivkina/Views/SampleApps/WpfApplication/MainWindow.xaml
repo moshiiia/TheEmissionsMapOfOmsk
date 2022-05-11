@@ -18,9 +18,9 @@
                 <ResourceDictionary Source="MapLayers.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type vm:PolylineItem}">
+            <!--<DataTemplate DataType="{x:Type vm:PolylineItem}">
                 <map:MapPolyline Locations="{Binding Locations}" Stroke="Red" StrokeThickness="3"/>
-            </DataTemplate>
+            </DataTemplate>-->
 
             <Style x:Key="PointItemStyle" TargetType="{x:Type map:MapItem}">
                 <EventSetter Event="UIElement.TouchDown" Handler="MapItemTouchDown"/>

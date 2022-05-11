@@ -1,5 +1,5 @@
-﻿using MapControl;
-using MainModel.Entities;
+﻿using MainModel.Entities;
+using MapControl;
 
 namespace ViewModels
 {
@@ -13,7 +13,7 @@ namespace ViewModels
         public bool IsSelected { get; set; }
        
 
-        static internal PointItem  GetPoint(Point point)
+        public static PointItem  GetPoint(Point point)
         {
             PointItem item = new PointItem()
             {

@@ -1,6 +1,6 @@
 ﻿using MapControl;
 
-namespace ViewModels
+namespace MainModel.NotDbEntities
 {
     public class PolylineItem
     {

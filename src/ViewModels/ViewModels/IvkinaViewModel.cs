@@ -6,6 +6,7 @@ using ViewModelBase.Commands.AsyncCommands;
 using System.Collections;
 using ViewModelBase.Commands.QuickCommands;
 using ViewModels;
+using MainModel.NotDbEntities;
 
 namespace ViewModels
 {
@@ -61,9 +62,10 @@ namespace ViewModels
         private void AddCalculation()
         {
             var checks = Points.Where(y => y.IsSelected);
-            //var count = checks.Count(); 
-            //переход в расчеты
+            var count = checks.Count();
 
+            //if (count == 2) CountMathModel1  
+            //    else  CountMathModel2
 
         }
 
