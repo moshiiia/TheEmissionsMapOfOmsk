@@ -8,6 +8,8 @@ namespace SampleApplication
         public string Name { get; set; }
 
         public Location Location { get; set; }
+
+        public double Amount{ get; set; }
     }
 
     public class PolylineItem

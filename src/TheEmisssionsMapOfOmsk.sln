@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapUiTools.WPF", "Ivkina\Vi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfApplication", "Ivkina\Views\SampleApps\WpfApplication\WpfApplication.csproj", "{F6BD3078-8F8C-4EF7-9689-37DBDB23D71F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculation", "Calculation\Calculation.csproj", "{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -239,6 +241,26 @@ Global
 		{F6BD3078-8F8C-4EF7-9689-37DBDB23D71F}.Release|x64.Build.0 = Release|Any CPU
 		{F6BD3078-8F8C-4EF7-9689-37DBDB23D71F}.Release|x86.ActiveCfg = Release|Any CPU
 		{F6BD3078-8F8C-4EF7-9689-37DBDB23D71F}.Release|x86.Build.0 = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|ARM.Build.0 = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|x64.Build.0 = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Debug|x86.Build.0 = Debug|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|ARM.ActiveCfg = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|ARM.Build.0 = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|ARM64.Build.0 = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|x64.ActiveCfg = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|x64.Build.0 = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|x86.ActiveCfg = Release|Any CPU
+		{85D6BA8D-AF76-4CA4-88E5-90DC0E4A5975}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
