@@ -57,7 +57,7 @@ namespace Calculation
 
 
         /////////////////////// ММ2 по 3-ем точкам
-        public void CountMathModel2(List<PointItem> points)
+        public void CountMathModel2(List<(double lat, double longitude, double amount)> points)
         {
             double mnk = 0, mnk1 = 1000000;
             double Cp1, Cp2, Cp3, Cp_point;
@@ -71,20 +71,20 @@ namespace Calculation
                 {
                     for (q3 = 0; q3 < 10000; q3++)
                     {
-                       (double x1, double y1) = GeoToPol(points[0].Location.Latitude, points[0].Location.Longitude);
+                       (double x1, double y1) = GeoToPol(points[0].lat, points[0].longitude);
                        (double r1, double fi1) = R_Fi_Count(x1, y1);
 
-                       (double x2, double y2) = GeoToPol(points[1].Location.Latitude, points[1].Location.Longitude);
+                       (double x2, double y2) = GeoToPol(points[1].lat, points[1].longitude);
                        (double r2, double fi2) = R_Fi_Count(x2, y2);
 
-                       (double x3, double y3) = GeoToPol(points[2].Location.Latitude, points[2].Location.Longitude);
+                       (double x3, double y3) = GeoToPol(points[2].lat, points[2].longitude);
                        (double r3, double fi3) = R_Fi_Count(x3, y3);
 
                        Cp1 = CountFi(RoseFunc(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-q1 / r1);
                        Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
                        Cp3 = CountFi(RoseFunc(fi3)) * q3 * Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
 
-                       mnk = Math.Pow(Cp1 - points[0].Amount, 2) + Math.Pow(Cp2 - points[1].Amount, 2) + Math.Pow(Cp3 - points[3].Amount, 2);
+                       mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2) + Math.Pow(Cp3 - points[3].Amount, 2);
                        if (mnk < mnk1)
                        {
                            mnk1 = mnk;

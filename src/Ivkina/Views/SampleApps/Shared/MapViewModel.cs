@@ -9,7 +9,7 @@ namespace SampleApplication
 
         public Location Location { get; set; }
 
-        public double Amount{ get; set; }
+        //public double Amount{ get; set; }
     }
 
     public class PolylineItem
