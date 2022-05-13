@@ -84,7 +84,7 @@ namespace Calculation
                        Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
                        Cp3 = CountFi(RoseFunc(fi3)) * q3 * Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
 
-                       mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2) + Math.Pow(Cp3 - points[3].Amount, 2);
+                       mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2) + Math.Pow(Cp3 - points[3].amount, 2);
                        if (mnk < mnk1)
                        {
                            mnk1 = mnk;
