@@ -1,12 +1,9 @@
-﻿using MainModel.Entities;
-using MainModel.Entities.Enums;
+﻿using MainModel.Entities.Enums;
 using System.Collections.ObjectModel;
 using ViewModelBase.Commands;
-using ViewModelBase.Commands.AsyncCommands;
-using System.Collections;
 using ViewModelBase.Commands.QuickCommands;
-using ViewModels;
 using MainModel.NotDbEntities;
+
 
 namespace ViewModels
 {
@@ -65,9 +62,10 @@ namespace ViewModels
             var count = checks.Count();
 
             var data = checks.Select(y => (y.Location.Latitude, y.Location.Longitude, y.Amount));
-            //(count == 2)  
-            //    else  CountMathModel2
-
+            if (count == 3) {
+                Calculation.CountMathModel2();
+            }  
+            //    else  CountMathModel1
         }
 
         public Command CalculationCommand { get; }

@@ -134,7 +134,8 @@
             IsHitTestVisible="False" Height="118" Width="195" />
 
             <map:MapItemsControl ItemsSource="{Binding Pushpins}"
-                                 ItemContainerStyle="{StaticResource PushpinItemStyle}" Margin="0,4,-66,-143"/>
+                                 ItemContainerStyle="{StaticResource PushpinItemStyle}" Margin="0,4,-66,-143"
+            />
 
 
 
@@ -150,7 +151,9 @@
             <map:MapItemsControl x:Name="Points"
                 ItemsSource="{Binding Points}"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
-                                 SelectionMode="Extended"/>
+                                 SelectionMode="Extended"
+            />
+            
         </map:Map>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF" Height="7" Margin="0,0,0,1" Width="146">

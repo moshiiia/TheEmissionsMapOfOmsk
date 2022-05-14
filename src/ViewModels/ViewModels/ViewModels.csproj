@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Ivkina\CalculationModule\IvkinaCalculation\IvkinaCalculation.csproj" />
     <ProjectReference Include="..\..\Ivkina\Views\MapControl\WPF\MapControl.WPF.csproj" />
     <ProjectReference Include="..\..\Models\MainModel\MainModel.csproj" />
     <ProjectReference Include="..\ViewModelBase\ViewModelBase.csproj" />

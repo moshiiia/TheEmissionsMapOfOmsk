@@ -2,6 +2,9 @@ using MapControl;
 using SampleApplication;
 using System;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Calculation
 {
@@ -13,7 +16,7 @@ namespace Calculation
             public double Longitude{ get; set; }
             public double Amount { get; set; }
         }
-
+        List<Cp_mass> cp_Masses = new List<Cp_mass>();
         double[] wR = new double[] { 6.8, 9.1, 10.9, 4.5, 21.1, 30.7, 6.4, 4.0 }; //роза ветров
         double fi; //угол в градусах
         double r; //расстояние
@@ -71,7 +74,7 @@ namespace Calculation
             double Cp1, Cp2, Cp3, Cp_point;
             double q1, q2, q3; //q для рассчета
             double Q1 = 0, Q2 = 0, Q3 = 0; //Q итоговые
-            List<Cp_mass> arrDraw = new List<Cp_mass>();
+           
 
             for (q1 = 0; q1 < 10000; q1++)
             {
@@ -119,15 +122,62 @@ namespace Calculation
                     cp_Mass.Latitude=x;
                     cp_Mass.Longitude=y;
                     cp_Mass.Amount =Cp_point;
-                    arrDraw.Add(cp_Mass);
+                    cp_Masses.Add(cp_Mass); //создание в лист
                 }
             }
         }
 
+        public void DrawPolygon(object sender, EventArgs e)
+        {
+            foreach (Cp_mass cp_Mass in cp_Masses)
+            {    //для каждой точки создавать полигон со сторонами шага 0,001 по координатам
+                //x и y
+                //менять цвет полигона в завис-ти от кол-ва DUst
+                //??забиндить его во вью
 
-            ///Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
-            // вызываться будет либо Calc1 либо Calc2)
-            ///Функция отрисовки полей отельно и вызывается после Calc.
+                Polygon green = new Polygon();
+                green.Stroke = Brushes.Green;
+                green.Fill = Brushes.Green;
+                green.Opacity = 0.5;
+
+                Polygon yellow = new Polygon();
+                yellow.Stroke = Brushes.Yellow;
+                yellow.Fill = Brushes.Yellow;
+                yellow.Opacity = 0.5;
+
+                Polygon orange = new Polygon();
+                yellow.Stroke = Brushes.Orange;
+                orange.Fill = Brushes.Orange;
+                orange.Opacity = 0.5;
+
+                Polygon red = new Polygon();
+                red.Stroke = Brushes.Red;
+                red.Fill = Brushes.Red;
+                red.Opacity = 0.5;
+
+                if (cp_Mass.Amount < 150)
+                {
+                    green.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude)};
+                }
+                
+                if (cp_Mass.Amount>=150 && cp_Mass.Amount < 200) {
+                    yellow.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                }
+                if (cp_Mass.Amount>=200 && cp_Mass.Amount < 300) {
+                    orange.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                }
+                else
+                {
+                    red.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                }
+            }
+
+        }
+
+     
+        ///Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
+        // вызываться будет либо Calc1 либо Calc2)
+        ///Функция отрисовки полей отельно и вызывается после Calc
 
     }
 }
