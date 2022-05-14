@@ -65,7 +65,7 @@ namespace ViewModels
             var count = checks.Count();
 
             var data = checks.Select(y => (y.Location.Latitude, y.Location.Longitude, y.Amount));
-            //if (count == 2) CountMathModel1  
+            //(count == 2)  
             //    else  CountMathModel2
 
         }

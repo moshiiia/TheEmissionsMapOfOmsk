@@ -61,66 +61,66 @@ namespace IvkinaCalculation
 
 
         /////////////////////// ММ2 по 3-ем точкам
-        public void CountMathModel2(List<PointItem> points)
-        {
+        //public void CountMathModel2(List<PointItem> points)
+        //{
 
-            int mnk1 = 1000000;
-            double point1val, point2val, point3val; //кол-во загрязнения в точке
-            //передавать сюда точку из ListItem
-            //доставать ее координаты и загрязнение для рассчетов
+        //    int mnk1 = 1000000;
+        //    double point1val, point2val, point3val; //кол-во загрязнения в точке
+        //    //передавать сюда точку из ListItem
+        //    //доставать ее координаты и загрязнение для рассчетов
 
-            int mnk = 0;
-            double Cp1, Cp2,Cp3;
-            double q1, q2, q3; //q для рассчета
-            double Q1, Q2, Q3; //Q итоговые
+        //    int mnk = 0;
+        //    double Cp1, Cp2,Cp3;
+        //    double q1, q2, q3; //q для рассчета
+        //    double Q1, Q2, Q3; //Q итоговые
 
-            for (q1 = 0; q1< 10000; q1++)
-            {
-                for (q2 = 0; q2< 10000; q2++)
-                {
-                    for (q3 = 0; q3< 10000; q3++)
-                    {
+        //    for (q1 = 0; q1< 10000; q1++)
+        //    {
+        //        for (q2 = 0; q2< 10000; q2++)
+        //        {
+        //            for (q3 = 0; q3< 10000; q3++)
+        //            {
 
 
-                        double x1, y1 = GeoToPol(point1);
-                        double r1, fi1 = R_Fi_Count(x1, y1);
+        //                double x1, y1 = GeoToPol(point1);
+        //                double r1, fi1 = R_Fi_Count(x1, y1);
 
-                        double x2, y2 = GeoToPol(point2);
-                        double r2, fi2 = R_Fi_Count(x2, y2);
+        //                double x2, y2 = GeoToPol(point2);
+        //                double r2, fi2 = R_Fi_Count(x2, y2);
 
-                        double x3, y3 = GeoToPol(point3);
-                        double r3, fi3 = R_Fi_Count(x3, y3);
+        //                double x3, y3 = GeoToPol(point3);
+        //                double r3, fi3 = R_Fi_Count(x3, y3);
 
-                        Cp1 = CountFi(RoseFunc(fi1)) * q1* Math.Pow(r1, q2) * Math.Exp(-q1 / r1);
-                        Cp2 = CountFi(RoseFunc(fi2)) * q2* Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
-                        Cp3 = CountFi(RoseFunc(fi3)) * q3* Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
+        //                Cp1 = CountFi(RoseFunc(fi1)) * q1* Math.Pow(r1, q2) * Math.Exp(-q1 / r1);
+        //                Cp2 = CountFi(RoseFunc(fi2)) * q2* Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
+        //                Cp3 = CountFi(RoseFunc(fi3)) * q3* Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
 
-                        mnk = Math.Pow(Cp1 - point1val, 2) + (Cp2 - point2val, 2) + (Cp3 - point3val, 2);
+        //                mnk = Math.Pow(Cp1 - point1val, 2) + (Cp2 - point2val, 2) + (Cp3 - point3val, 2);
 
-                        if (mnk<mnk1)
-                        {
-                            mnk1 = mnk;
-                            Q1 = q1;
-                            Q2 = q2;
-                            Q3 = q3;
-                        }
-                     mnk1 = 0;
-                    }
-                }
-            }
+        //                if (mnk<mnk1)
+        //                {
+        //                    mnk1 = mnk;
+        //                    Q1 = q1;
+        //                    Q2 = q2;
+        //                    Q3 = q3;
+        //                }
+        //             mnk1 = 0;
+        //            }
+        //        }
+        //    }
 
-            //полей для каждой точки области 
+           //полей для каждой точки области 
 
-            for (double x = 125.82405; x > -94.38795; x -= 0.001)
-            {
-                for (double y = 196.66801; y > -404.54825; y -= 0.001)
-                {
-                    double r_point, fi_point = R_Fi_Count(x,y);
-                    Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-Q3 / r_point);
-                //в массив записать Сp_point по ним потом строим интерпаляцию
-                }
-            }
-        }
+        //    for (double x = 125.82405; x > -94.38795; x -= 0.001)
+        //    {
+        //        for (double y = 196.66801; y > -404.54825; y -= 0.001)
+        //        {
+        //            double r_point, fi_point = R_Fi_Count(x,y);
+        //            Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-Q3 / r_point);
+        //        //в массив записать Сp_point по ним потом строим интерпаляцию
+        //        }
+        //    }
+        //}
 
         ////как отрисовывать поля после перевода? делать обратный перевод??
         ///

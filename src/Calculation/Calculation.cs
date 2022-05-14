@@ -7,11 +7,19 @@ namespace Calculation
 {
     public class Calculation
     {
+        public class Cp_mass
+        {
+            public double Latitude { get; set; }
+            public double Longitude{ get; set; }
+            public double Amount { get; set; }
+        }
+
         double[] wR = new double[] { 6.8, 9.1, 10.9, 4.5, 21.1, 30.7, 6.4, 4.0 }; //роза ветров
         double fi; //угол в градусах
         double r; //рассто€ние
         double xist = -48.96545; //координаты источника(“Ё÷-5 г.ќмск)
         double yist = -138.37523;
+
 
         public double CountFi(double fi)
             {
@@ -19,7 +27,6 @@ namespace Calculation
                 if (fi > 360) fi = fi - 360;
                 return fi;
             }
-
         public double RoseFunc(double fi)
             {
                 if (fi >= 0 && fi <= 45) return (wR[0] + (wR[1] - wR[0]) * (fi) / 45);
@@ -33,8 +40,8 @@ namespace Calculation
                 else throw new Exception();
             } 
 
-        public (double,double) GeoToPol(double latitude, double longitude)
-            {
+        public (double,double) GeoToDec(double latitude, double longitude)
+        {
                 double a = 6378.1370; //экваториальный радиус конст
                 double b = 6356.8; //пол€рный радиус конст
 
@@ -45,15 +52,16 @@ namespace Calculation
                 double x = N * Math.Cos(latitude) * Math.Cos(longitude);
                 double y = N * Math.Cos(latitude) * Math.Sin(longitude);
                 return new(x, y);
-            }
+        }
 
         public (double, double) R_Fi_Count(double x, double y)
-            {
-                //переход от декарт.координат к пол€рным
-                r = Math.Sqrt(Math.Pow(x - xist, 2) + Math.Pow(y - yist, 2));
-                fi = Math.Atan((y - yist) / (x - xist));  //радианы или градусы??
-                return new(r, fi);
-            }
+        {
+
+            //переход от декарт.координат к пол€рным
+            r = Math.Sqrt(Math.Pow(x - xist, 2) + Math.Pow(y - yist, 2));
+            fi = Math.Atan((y - yist) / (x - xist));  //радианы или градусы??
+            return new(r, fi);
+        }
 
 
         /////////////////////// ћћ2 по 3-ем точкам
@@ -63,7 +71,7 @@ namespace Calculation
             double Cp1, Cp2, Cp3, Cp_point;
             double q1, q2, q3; //q дл€ рассчета
             double Q1 = 0, Q2 = 0, Q3 = 0; //Q итоговые
-            List<double> Cp_mass = new List<double>();
+            List<Cp_mass> arrDraw = new List<Cp_mass>();
 
             for (q1 = 0; q1 < 10000; q1++)
             {
@@ -71,13 +79,13 @@ namespace Calculation
                 {
                     for (q3 = 0; q3 < 10000; q3++)
                     {
-                       (double x1, double y1) = GeoToPol(points[0].lat, points[0].longitude);
+                       (double x1, double y1) = GeoToDec(points[0].lat, points[0].longitude);
                        (double r1, double fi1) = R_Fi_Count(x1, y1);
 
-                       (double x2, double y2) = GeoToPol(points[1].lat, points[1].longitude);
+                       (double x2, double y2) = GeoToDec(points[1].lat, points[1].longitude);
                        (double r2, double fi2) = R_Fi_Count(x2, y2);
 
-                       (double x3, double y3) = GeoToPol(points[2].lat, points[2].longitude);
+                       (double x3, double y3) = GeoToDec(points[2].lat, points[2].longitude);
                        (double r3, double fi3) = R_Fi_Count(x3, y3);
 
                        Cp1 = CountFi(RoseFunc(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-q1 / r1);
@@ -96,22 +104,27 @@ namespace Calculation
                     }
                 }
             }
-
+ 
              //полей дл€ каждой точки области 
-            for (double x = 125.82405; x > -94.38795; x -= 0.001)
+            for (double x = 54.941745; x < 55.042831; x += 0.001)
             {
-                for (double y = 196.66801; y > -404.54825; y -= 0.001)
+                for (double y = 73.258271; y < 73.598211; y += 0.001)
                 {
-                    (double r_point, double fi_point) = R_Fi_Count(x, y);
+                    //переводим координаты в декартовые дл€ расчета
+                    (double xdec, double ydec) = GeoToDec(x,y);
+                    (double r_point, double fi_point) = R_Fi_Count(xdec, ydec);
                     Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-Q3 / r_point);
-                    //в лист записать —p_point по ним потом строим интерпол€цию
-                    Cp_mass.Add(Cp_point);
+
+                    Cp_mass cp_Mass = new Cp_mass(); //создание нового элемента
+                    cp_Mass.Latitude=x;
+                    cp_Mass.Longitude=y;
+                    cp_Mass.Amount =Cp_point;
+                    arrDraw.Add(cp_Mass);
                 }
             }
         }
 
-            ////как отрисовывать пол€ после перевода? делать обратный перевод??
-            ///
+
             ///–асчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
             // вызыватьс€ будет либо Calc1 либо Calc2)
             ///‘ункци€ отрисовки полей отельно и вызываетс€ после Calc.
