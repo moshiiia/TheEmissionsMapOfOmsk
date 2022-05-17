@@ -1,11 +1,3 @@
-using MapControl;
-using SampleApplication;
-using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Shapes;
-
 namespace IvkinaCalculation
 {
     public class Calculation
@@ -127,52 +119,52 @@ namespace IvkinaCalculation
             }
         }
 
-        public void DrawPolygon(object sender, EventArgs e)
-        {
-            foreach (Cp_mass cp_Mass in cp_Masses)
-            {    //для каждой точки создавать полигон со сторонами шага 0,001 по координатам
-                //x и y
-                //менять цвет полигона в завис-ти от кол-ва DUst
-                //??забиндить его во вью
+        //public void DrawPolygon(object sender, EventArgs e)
+        //{
+        //    foreach (Cp_mass cp_Mass in cp_Masses)
+        //    {    //для каждой точки создавать полигон со сторонами шага 0,001 по координатам
+        //        //x и y
+        //        //менять цвет полигона в завис-ти от кол-ва DUst
+        //        //??забиндить его во вью
 
-                Polygon green = new Polygon();
-                green.Stroke = Brushes.Green;
-                green.Fill = Brushes.Green;
-                green.Opacity = 0.5;
+        //        Polygon green = new Polygon();
+        //        green.Stroke = Brushes.Green;
+        //        green.Fill = Brushes.Green;
+        //        green.Opacity = 0.5;
 
-                Polygon yellow = new Polygon();
-                yellow.Stroke = Brushes.Yellow;
-                yellow.Fill = Brushes.Yellow;
-                yellow.Opacity = 0.5;
+        //        Polygon yellow = new Polygon();
+        //        yellow.Stroke = Brushes.Yellow;
+        //        yellow.Fill = Brushes.Yellow;
+        //        yellow.Opacity = 0.5;
 
-                Polygon orange = new Polygon();
-                yellow.Stroke = Brushes.Orange;
-                orange.Fill = Brushes.Orange;
-                orange.Opacity = 0.5;
+        //        Polygon orange = new Polygon();
+        //        yellow.Stroke = Brushes.Orange;
+        //        orange.Fill = Brushes.Orange;
+        //        orange.Opacity = 0.5;
 
-                Polygon red = new Polygon();
-                red.Stroke = Brushes.Red;
-                red.Fill = Brushes.Red;
-                red.Opacity = 0.5;
+        //        Polygon red = new Polygon();
+        //        red.Stroke = Brushes.Red;
+        //        red.Fill = Brushes.Red;
+        //        red.Opacity = 0.5;
 
-                if (cp_Mass.Amount < 150)
-                {
-                    green.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude)};
-                }
+        //        if (cp_Mass.Amount < 150)
+        //        {
+        //            green.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude)};
+        //        }
                 
-                if (cp_Mass.Amount>=150 && cp_Mass.Amount < 200) {
-                    yellow.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
-                }
-                if (cp_Mass.Amount>=200 && cp_Mass.Amount < 300) {
-                    orange.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
-                }
-                else
-                {
-                    red.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
-                }
-            }
+        //        if (cp_Mass.Amount>=150 && cp_Mass.Amount < 200) {
+        //            yellow.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+        //        }
+        //        if (cp_Mass.Amount>=200 && cp_Mass.Amount < 300) {
+        //            orange.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+        //        }
+        //        else
+        //        {
+        //            red.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+        //        }
+        //    }
 
-        }
+        //}
 
      
         ///Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
