@@ -129,7 +129,7 @@ namespace ViewModels
 
             //переход от декарт.координат к полярным
             r = Math.Sqrt(Math.Pow(x - xist, 2) + Math.Pow(y - yist, 2));
-            fi = Math.Atan((y - yist) / (x - xist));  //радианы или градусы??
+            fi = Math.Atan((y - yist) / (x - xist)) * 57.296;  //радианы или градусы??
             return new(r, fi);
         }
 
@@ -143,11 +143,11 @@ namespace ViewModels
             double Q1 = 0, Q2 = 0, Q3 = 0; //Q итоговые
 
 
-            for (q1 = 1; q1 < 10000; q1++)
+            for (q1 = 1; q1 < 100; q1++)
             {
-                for (q2 = 1; q2 < 10000; q2++)
+                for (q2 = 1; q2 < 100; q2++)
                 {
-                    for (q3 = 1; q3 < 10000; q3++)
+                    for (q3 = 1; q3 < 100; q3++)
                     {
                         var d = points[0].amount;
                         (double x1, double y1) = GeoToDec(points[0].lat, points[0].longitude);
@@ -163,7 +163,9 @@ namespace ViewModels
                         Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
                         Cp3 = CountFi(RoseFunc(fi3)) * q3 * Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
 
-                        mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2) + Math.Pow(Cp3 - points[3].amount, 2);
+                       
+                        mnk = Math.Pow((Cp1 - points[0].amount), 2)+ Math.Pow((Cp2 - points[1].amount), 2)+Math.Pow((Cp3 - points[2].amount), 2);
+
                         if (mnk < mnk1)
                         {
                             mnk1 = mnk;
@@ -177,9 +179,9 @@ namespace ViewModels
             }
 
             //полей для каждой точки области ??почему не попадает
-            for (double x = 54.941745; x < 55.042831; x += 0.001)
+            for (double x = 54.941745; x < 55.042831; x += 0.01)
             {
-                for (double y = 73.258271; y < 73.598211; y += 0.001)
+                for (double y = 73.258271; y < 73.598211; y += 0.0001)
                 {
                     //переводим координаты в декартовые для расчета
                     (double xdec, double ydec) = GeoToDec(x, y);
