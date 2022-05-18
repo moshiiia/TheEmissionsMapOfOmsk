@@ -6,6 +6,7 @@ using MainModel.NotDbEntities;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows;
+using Microsoft.VisualBasic;
 
 namespace ViewModels
 {
@@ -74,7 +75,6 @@ namespace ViewModels
         public Command CalculationCommand { get; }
         public void RaiseCanCalculationCommand() => CalculationCommand.RaiseCanExecuteChanged();
 
-        
 
         /////////////////////////////////////////////////////////////////// рассчеты
         public class Cp_mass
@@ -84,12 +84,17 @@ namespace ViewModels
             public double Amount { get; set; }
         }
         List<Cp_mass> cp_Masses = new List<Cp_mass>();
+       
+        PointCollection green_Masses = new PointCollection();
+        PointCollection yellow_Masses = new PointCollection();
+        PointCollection orange_Masses = new PointCollection();
+        PointCollection red_Masses = new PointCollection();
+
         double[] wR = new double[] { 6.8, 9.1, 10.9, 4.5, 21.1, 30.7, 6.4, 4.0 }; //роза ветров
         double fi; //угол в градусах
         double r; //расстояние
         double xist = -48.96545; //координаты источника(ТЭЦ-5 г.Омск)
         double yist = -138.37523;
-
 
         public double CountFi(double fi)
         {
@@ -109,7 +114,6 @@ namespace ViewModels
             else if (fi >= 315 && fi <= 360) return (wR[7] + (wR[0] - wR[7]) * (fi - 315) / 45);
             else throw new Exception();
         }
-
         public (double, double) GeoToDec(double latitude, double longitude)
         {
             double a = 6378.1370; //экваториальный радиус конст
@@ -123,7 +127,6 @@ namespace ViewModels
             double y = N * Math.Cos(latitude) * Math.Sin(longitude);
             return new(x, y);
         }
-
         public (double, double) R_Fi_Count(double x, double y)
         {
 
@@ -164,7 +167,7 @@ namespace ViewModels
                         Cp3 = CountFi(RoseFunc(fi3)) * q3 * Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
 
                        
-                        mnk = Math.Pow((Cp1 - points[0].amount), 2)+ Math.Pow((Cp2 - points[1].amount), 2)+Math.Pow((Cp3 - points[2].amount), 2);
+                        mnk = Math.Pow(Cp1 - points[0].amount, 2)+ Math.Pow(Cp2 - points[1].amount, 2)+Math.Pow(Cp3 - points[2].amount, 2);
 
                         if (mnk < mnk1)
                         {
@@ -199,11 +202,9 @@ namespace ViewModels
 
         public void DrawPolygon()
         {
-
             Polygon green = new Polygon();
             green.Stroke = Brushes.Green;
             green.Fill = Brushes.Green;
-            green.StrokeThickness = 2;
             green.Opacity = 0.5;
 
             Polygon yellow = new Polygon();
@@ -221,34 +222,36 @@ namespace ViewModels
             red.Fill = Brushes.Red;
             red.Opacity = 0.5;
 
-            foreach (Cp_mass cp_Mass in cp_Masses)
-            {    //для каждой точки создавать полигон со сторонами шага 0,001 по координатам
-                //x и y
-                //менять цвет полигона в завис-ти от кол-ва DUst
-                //??забиндить его во вью
 
-                
+            foreach (Cp_mass cp_Mass in cp_Masses)
+            {   
+                //??забиндить его во вью
                 if (cp_Mass.Amount < 150)
                 {
-                    green.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                    green_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
                 }
-
+             
                 if (cp_Mass.Amount >= 150 && cp_Mass.Amount < 200)
                 {
-                    yellow.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                    yellow_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
                 }
                 if (cp_Mass.Amount >= 200 && cp_Mass.Amount < 300)
                 {
-                    orange.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                    orange_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
                 }
                 else
                 {
-                    red.Points = new PointCollection() { new Point(cp_Mass.Latitude, cp_Mass.Longitude) };
+                    red_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
                 }
+
+                green.Points=green_Masses;
+                yellow.Points = yellow_Masses;
+                orange.Points = orange_Masses;
+                red.Points = red_Masses;
+               
             }
 
         }
-
 
         ///Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
         // вызываться будет либо Calc1 либо Calc2)

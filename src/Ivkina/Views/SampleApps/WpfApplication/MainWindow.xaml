@@ -136,7 +136,7 @@
             <map:MapItemsControl ItemsSource="{Binding Pushpins}"
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}" Margin="0,4,-66,-143"
             />
-
+            <map:Pushpin Location="55.000810,73.487318" Content="" Background="DarkBlue"/>
 
 
             <!--<map:MapPath Location="53.5,8.2" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
