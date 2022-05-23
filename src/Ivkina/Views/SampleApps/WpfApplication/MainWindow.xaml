@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ViewModels;assembly=ViewModels"
         xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        Title="XAML MapControl - WPF Sample Application" Height="580" Width="912"
+        Title="The emission map of Omsk" Height="580" Width="912"
         Stylus.IsPressAndHoldEnabled="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
 
@@ -113,7 +113,7 @@
     </Window.DataContext>
 
 
-    <Grid Margin="208,10,0,123" Background="#FF9D9DA0">
+    <Grid Name="MyGrid" Margin="208,10,0,123" Background="#FF9D9DA0">
         <Grid.RowDefinitions>
             <RowDefinition Height="436*"/>
             <RowDefinition Height="31*"/>
@@ -125,7 +125,7 @@
                  MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave="MapMouseLeave"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting">
-
+                     
             <local:OutlinedText
             x:Name="mouseLocation" Margin="0,4,0,0"
             Background="{Binding Background, ElementName=map}"
@@ -137,7 +137,9 @@
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}" Margin="0,4,-66,-143"
             />
             <map:Pushpin Location="55.000810,73.487318" Content="" Background="DarkBlue"/>
-
+            
+                
+           
 
             <!--<map:MapPath Location="53.5,8.2" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
                 <map:MapPath.Data>
@@ -149,10 +151,10 @@
             <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
 
             <map:MapItemsControl x:Name="Points"
-                ItemsSource="{Binding Points}"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
-                                 SelectionMode="Extended"
-            />
+                                 SelectionMode="Extended">
+            </map:MapItemsControl>
+
             
         </map:Map>
 
@@ -233,7 +235,7 @@
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <CheckBox 
-                            Content="{Binding Num}" 
+                            Coonntent="{Binding Num}" 
                             IsChecked="{Binding IsSelected}" Click="CheckBox_Click"/>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
@@ -244,5 +246,6 @@
                     ToolTip="Для проведения рассчетов выберите 2 или 3 точки из списка и нажмите на копку."/>
         </Canvas>
 
+        <Polygon Points="{Binding green_Masses}"/>
     </Grid>
 </Window>
