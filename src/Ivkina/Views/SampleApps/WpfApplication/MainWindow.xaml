@@ -154,8 +154,7 @@
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
                                  SelectionMode="Extended">
             </map:MapItemsControl>
-
-            
+            <Polygon Points="{Binding green_Masses}" Stroke = "Green" Fill="Green" Opacity="1"/>
         </map:Map>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF" Height="7" Margin="0,0,0,1" Width="146">
@@ -235,7 +234,7 @@
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <CheckBox 
-                            Coonntent="{Binding Num}" 
+                            Content="{Binding Num}" 
                             IsChecked="{Binding IsSelected}" Click="CheckBox_Click"/>
                     </HierarchicalDataTemplate>
                 </ListBox.ItemTemplate>
@@ -245,7 +244,5 @@
                     FontWeight="Bold" FontSize="14" Command="{Binding CalculationCommand}" 
                     ToolTip="Для проведения рассчетов выберите 2 или 3 точки из списка и нажмите на копку."/>
         </Canvas>
-
-        <Polygon Points="{Binding green_Masses}"/>
     </Grid>
 </Window>
