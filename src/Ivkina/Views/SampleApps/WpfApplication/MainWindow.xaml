@@ -125,7 +125,7 @@
                  MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave="MapMouseLeave"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting">
-                     
+
             <local:OutlinedText
             x:Name="mouseLocation" Margin="0,4,0,0"
             Background="{Binding Background, ElementName=map}"
@@ -137,24 +137,24 @@
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}" Margin="0,4,-66,-143"
             />
             <map:Pushpin Location="55.000810,73.487318" Content="" Background="DarkBlue"/>
-            
-                
-           
 
-            <!--<map:MapPath Location="53.5,8.2" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
+            <!--<map:MapPath Location="54.919552, 73.178293" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
                 <map:MapPath.Data>
                     <EllipseGeometry RadiusX="1852" RadiusY="1852"/>
                 </map:MapPath.Data>
-            </map:MapPath>-->
-
-            <!--<map:Pushpin AutoCollapse="True" Location="53.5,8.2" Content="N 53°30' E 8°12'"/>-->
+            </map:MapPathL>-->
             <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
 
             <map:MapItemsControl x:Name="Points"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
                                  SelectionMode="Extended">
             </map:MapItemsControl>
-            <Polygon Points="{Binding green_Masses}" Stroke = "Green" Fill="Green" Opacity="1"/>
+
+            <map:MapPolygon Locations="{Binding green_Masses}" Fill="Green" Opacity="0.5"/>
+            <map:MapPolygon Locations="{Binding yellow_Masses}" Fill="Yellow" Opacity="0.5"/>
+            <map:MapPolygon Locations="{Binding orange_Masses}" Fill="DarkOrange" Opacity="0.5"/>
+            <map:MapPolygon Locations="{Binding red_Masses}" Fill="Red" Opacity="0.5"/>
+
         </map:Map>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF" Height="7" Margin="0,0,0,1" Width="146">

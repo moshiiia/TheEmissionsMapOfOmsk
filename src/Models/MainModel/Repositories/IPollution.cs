@@ -7,6 +7,5 @@ public interface IPollution
         public Task<Pollution?> GetPollutionAsync(Guid id);
         public Task DeleteAsync(Pollution pollution);
         public Task UpdateAsync(Pollution pollution);
-
     }
 

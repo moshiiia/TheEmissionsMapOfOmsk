@@ -7,9 +7,9 @@ using ViewModelBase.Commands.QuickCommands;
 using MainModel.NotDbEntities;
 using System.Windows.Shapes;
 using System.Windows.Media;
-
 using Microsoft.VisualBasic;
 using System.Windows;
+using MapControl;
 
 namespace ViewModels
 {
@@ -72,7 +72,11 @@ namespace ViewModels
                 CountMathModel2(data);
                 DrawPolygon(cp_Masses);
             }
-            //    else  CountMathModel1
+            if (count == 2)
+            {
+                CountMathModel1(data);
+                DrawPolygon(cp_Masses);
+            }
         }
 
         public Command CalculationCommand { get; }
@@ -178,7 +182,7 @@ namespace ViewModels
                 }
             }
 
-            for (double x = 54.941745; x < 55.042831; x += 0.01) //мжт поменять шаг
+            for (double x = 54.941745; x < 55.042831; x += 0.1) 
             {
                 for (double y = 73.258271; y < 73.598211; y += 0.001)
                 {
@@ -187,53 +191,118 @@ namespace ViewModels
                     (double r_point, double fi_point) = R_Fi_Count(xdec, ydec);
                     Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-Q3 / r_point);
 
-                    Cp_mass cp_Mass = new Cp_mass(); //создание нового элемента
+                    Cp_mass cp_Mass = new Cp_mass(); 
                     cp_Mass.Latitude = x;
                     cp_Mass.Longitude = y;
                     cp_Mass.Amount = Cp_point;
-                    cp_Masses.Add(cp_Mass); //создание в лист
+                    cp_Masses.Add(cp_Mass); 
                 }
             }
+            //var b = cp_Masses.Count();
         }
 
-        public PointCollection green_Masses { get; set; } = new();
-        public PointCollection yellow_Masses { get; set; } = new();
-        public PointCollection orange_Masses { get; set; } = new();
-        public PointCollection red_Masses { get; set; } = new();
+        /////////////////////// ММ1 по 2-ум точкам
+        public void CountMathModel1(List<(double lat, double longitude, double amount)> points)
+        {
+            double mnk = 0, mnk1 = 10000000000000;
+            double Cp1, Cp2, Cp_point;
+            double q1, q2; //q для рассчета
+            double Q1 = 0, Q2 = 0; //Q итоговые
+            double rmax = 4.125; //км
+
+            for (q1 = 1; q1 < 100; q1++)
+            {
+                for (q2 = 1; q2 < 100; q2++) //число растет
+                {
+                        var d = points[0].amount;
+                        (double x1, double y1) = GeoToDec(points[0].lat, points[0].longitude);
+                        (double r1, double fi1) = R_Fi_Count(x1, y1);
+
+                        (double x2, double y2) = GeoToDec(points[1].lat, points[1].longitude);
+                        (double r2, double fi2) = R_Fi_Count(x2, y2);
+
+                        Cp1 = CountFi(RoseFunc(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-2*rmax / r1);
+                        Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-2*rmax / r2);
+                  
+                        mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2);
+
+                        if (mnk < mnk1)
+                        {
+                            mnk1 = mnk;
+                            Q1 = q1; //почему значение не переприсваевается
+                            Q2 = q2;
+                        }
+                        mnk = 0;
+                } 
+            }
+
+            for (double x = 54.941745; x < 55.042831; x += 0.1)
+            {
+                for (double y = 73.258271; y < 73.598211; y += 0.001)
+                {
+                    //переводим координаты в декартовые для расчета
+                    (double xdec, double ydec) = GeoToDec(x, y);
+                    (double r_point, double fi_point) = R_Fi_Count(xdec, ydec);
+                    Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-2*rmax / r_point);
+
+                    Cp_mass cp_Mass = new Cp_mass();
+                    cp_Mass.Latitude = x;
+                    cp_Mass.Longitude = y;
+                    cp_Mass.Amount = Cp_point;
+                    cp_Masses.Add(cp_Mass);
+                }
+            }
+            //var b = cp_Masses.Count();
+        }
+
+        public List<Location> green_Masses { get; set; } = new();
+        public List<Location> yellow_Masses { get; set; } = new();
+        public List<Location> orange_Masses { get; set; } = new();
+        public List<Location> red_Masses { get; set; } = new();
         public void DrawPolygon(List<Cp_mass> cp_Masses)
         {
+            green_Masses.Clear();
+            yellow_Masses.Clear();
+            orange_Masses.Clear();
+            red_Masses.Clear();
+
             foreach (Cp_mass cp_Mass in cp_Masses)
             {
 
-                if (cp_Mass.Amount < 150)
+                ICollection<Location>? collection = null;
+
+                if (cp_Mass.Amount < 2000)
                 {
-                    Point point = new Point(cp_Mass.Latitude, cp_Mass.Longitude);
-                    green_Masses.Add(point);
+                    collection = green_Masses;
                 }
 
-                if (cp_Mass.Amount >= 150 && cp_Mass.Amount < 200)
+                if (cp_Mass.Amount >= 2000 && cp_Mass.Amount < 4200)
                 {
-                    //yellow_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
+                    collection = yellow_Masses;
                 }
-                if (cp_Mass.Amount >= 200 && cp_Mass.Amount < 300)
+
+                if (cp_Mass.Amount >= 4200 && cp_Mass.Amount < 5000)
                 {
-                    //orange_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
+                    collection = orange_Masses;
                 }
-                else
+
+                if (cp_Mass.Amount >= 5000)
                 {
-                    //red_Masses.Add(new Point(cp_Mass.Latitude, cp_Mass.Longitude));
+                    collection = red_Masses;
                 }
+
+                Location point = new(cp_Mass.Latitude, cp_Mass.Longitude);
+                collection?.Add(point);
 
             }
-            //проверим строит ли полигон
-            green_Masses.Add(new Point(54.992616, 73.453983));
-            green_Masses.Add(new Point(55.006193, 78.513775));
-            green_Masses.Add(new Point(54.030132, 79.475767));
+
+            OnPropertyChanged(nameof(green_Masses));
+            OnPropertyChanged(nameof(yellow_Masses));
+            OnPropertyChanged(nameof(orange_Masses));
+            OnPropertyChanged(nameof(red_Masses));
         }
         ///Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
         // вызываться будет либо Calc1 либо Calc2)
-        ///Функция отрисовки полей отельно и вызывается после Calc 
-
     }
 }
 
