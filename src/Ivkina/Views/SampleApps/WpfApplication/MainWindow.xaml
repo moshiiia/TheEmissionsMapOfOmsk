@@ -142,19 +142,27 @@
                 <map:MapPath.Data>
                     <EllipseGeometry RadiusX="1852" RadiusY="1852"/>
                 </map:MapPath.Data>
-            </map:MapPathL>-->
+            </map:MapPath>-->
             <!--<map:MapItemsControl ItemsSource="{Binding Polylines}"/>-->
-
             <map:MapItemsControl x:Name="Points"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
                                  SelectionMode="Extended">
             </map:MapItemsControl>
 
-            <map:MapPolygon Locations="{Binding green_Masses}" Fill="Green" Opacity="0.5"/>
-            <map:MapPolygon Locations="{Binding yellow_Masses}" Fill="Yellow" Opacity="0.5"/>
-            <map:MapPolygon Locations="{Binding orange_Masses}" Fill="DarkOrange" Opacity="0.5"/>
-            <map:MapPolygon Locations="{Binding red_Masses}" Fill="Red" Opacity="0.5"/>
+            <map:MapPath Location="{Binding red_Masses}" Stroke="Red" StrokeThickness="3" Fill="Red">
+                <map:MapPath.Data>
+                    <EllipseGeometry RadiusX="1000" RadiusY="1000"/>
+                </map:MapPath.Data>
+            </map:MapPath>
+            
+            <!--<map:MapItemsControl ItemsSource="{Binding red_Item}">
+                <map:MapPath Stroke="Red" StrokeThickness="3" Fill="Red"/>
+            </map:MapItemsControl>-->
 
+            <!--<map:MapItemsControl ItemsSource="{Binding red_Masses}"/>
+            <map:MapItemsControl ItemsSource="{Binding yellow_Masses}"/>
+            <map:MapItemsControl ItemsSource="{Binding orange_Masses}"/>
+            <map:MapItemsControl ItemsSource="{Binding green_Masses}"/>-->
         </map:Map>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF" Height="7" Margin="0,0,0,1" Width="146">

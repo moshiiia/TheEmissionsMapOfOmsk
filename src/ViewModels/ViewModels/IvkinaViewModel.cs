@@ -82,7 +82,7 @@ namespace ViewModels
         public Command CalculationCommand { get; }
         public void RaiseCanCalculationCommand() => CalculationCommand.RaiseCanExecuteChanged();
 
-        
+
         /////////////////////////////////////////////////////////////////// рассчеты
         public class Cp_mass
         {
@@ -182,7 +182,7 @@ namespace ViewModels
                 }
             }
 
-            for (double x = 54.941745; x < 55.042831; x += 0.1) 
+            for (double x = 54.941745; x < 55.042831; x += 0.1)
             {
                 for (double y = 73.258271; y < 73.598211; y += 0.001)
                 {
@@ -191,11 +191,11 @@ namespace ViewModels
                     (double r_point, double fi_point) = R_Fi_Count(xdec, ydec);
                     Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-Q3 / r_point);
 
-                    Cp_mass cp_Mass = new Cp_mass(); 
+                    Cp_mass cp_Mass = new Cp_mass();
                     cp_Mass.Latitude = x;
                     cp_Mass.Longitude = y;
                     cp_Mass.Amount = Cp_point;
-                    cp_Masses.Add(cp_Mass); 
+                    cp_Masses.Add(cp_Mass);
                 }
             }
             //var b = cp_Masses.Count();
@@ -214,26 +214,26 @@ namespace ViewModels
             {
                 for (q2 = 1; q2 < 100; q2++) //число растет
                 {
-                        var d = points[0].amount;
-                        (double x1, double y1) = GeoToDec(points[0].lat, points[0].longitude);
-                        (double r1, double fi1) = R_Fi_Count(x1, y1);
+                    var d = points[0].amount;
+                    (double x1, double y1) = GeoToDec(points[0].lat, points[0].longitude);
+                    (double r1, double fi1) = R_Fi_Count(x1, y1);
 
-                        (double x2, double y2) = GeoToDec(points[1].lat, points[1].longitude);
-                        (double r2, double fi2) = R_Fi_Count(x2, y2);
+                    (double x2, double y2) = GeoToDec(points[1].lat, points[1].longitude);
+                    (double r2, double fi2) = R_Fi_Count(x2, y2);
 
-                        Cp1 = CountFi(RoseFunc(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-2*rmax / r1);
-                        Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-2*rmax / r2);
-                  
-                        mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2);
+                    Cp1 = CountFi(RoseFunc(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-2 * rmax / r1);
+                    Cp2 = CountFi(RoseFunc(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-2 * rmax / r2);
 
-                        if (mnk < mnk1)
-                        {
-                            mnk1 = mnk;
-                            Q1 = q1; //почему значение не переприсваевается
-                            Q2 = q2;
-                        }
-                        mnk = 0;
-                } 
+                    mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2);
+
+                    if (mnk < mnk1)
+                    {
+                        mnk1 = mnk;
+                        Q1 = q1; //почему значение не переприсваевается
+                        Q2 = q2;
+                    }
+                    mnk = 0;
+                }
             }
 
             for (double x = 54.941745; x < 55.042831; x += 0.1)
@@ -243,7 +243,7 @@ namespace ViewModels
                     //переводим координаты в декартовые для расчета
                     (double xdec, double ydec) = GeoToDec(x, y);
                     (double r_point, double fi_point) = R_Fi_Count(xdec, ydec);
-                    Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-2*rmax / r_point);
+                    Cp_point = CountFi(RoseFunc(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-2 * rmax / r_point);
 
                     Cp_mass cp_Mass = new Cp_mass();
                     cp_Mass.Latitude = x;
@@ -255,54 +255,86 @@ namespace ViewModels
             //var b = cp_Masses.Count();
         }
 
-        public List<Location> green_Masses { get; set; } = new();
-        public List<Location> yellow_Masses { get; set; } = new();
-        public List<Location> orange_Masses { get; set; } = new();
+
+        //public List<Location> green_Masses { get; set; } = new();
+        //public List<Location> yellow_Masses { get; set; } = new();
+        //public List<Location> orange_Masses { get; set; } = new();
         public List<Location> red_Masses { get; set; } = new();
+
+        //public List<MapPath> red_Item { get; set; } = new();
         public void DrawPolygon(List<Cp_mass> cp_Masses)
         {
-            green_Masses.Clear();
-            yellow_Masses.Clear();
-            orange_Masses.Clear();
+            //green_Masses.Clear();
+            //yellow_Masses.Clear();
+            //orange_Masses.Clear();
             red_Masses.Clear();
 
+            // double red_Min=0, red_Max=0;
+
+            //red_Item.Clear();
             foreach (Cp_mass cp_Mass in cp_Masses)
             {
 
                 ICollection<Location>? collection = null;
 
-                if (cp_Mass.Amount < 2000)
-                {
-                    collection = green_Masses;
-                }
+                //if (cp_Mass.Amount < 2000)
+                //{
+                //    collection = green_Masses;
+                //}
 
-                if (cp_Mass.Amount >= 2000 && cp_Mass.Amount < 4200)
-                {
-                    collection = yellow_Masses;
-                }
+                //if (cp_Mass.Amount >= 2000 && cp_Mass.Amount < 4200)
+                //{
+                //    collection = yellow_Masses;
+                //}
 
-                if (cp_Mass.Amount >= 4200 && cp_Mass.Amount < 5000)
-                {
-                    collection = orange_Masses;
-                }
+                //if (cp_Mass.Amount >= 4200 && cp_Mass.Amount < 4900)
+                //{
+                //    collection = orange_Masses;
+                //}
 
-                if (cp_Mass.Amount >= 5000)
+                //ICollection<MapPath>? collection = null;
+                if (cp_Mass.Amount < 5000)
                 {
-                    collection = red_Masses;
-                }
+                    //collection = red_Item;
+                    //int radius = 1000;
+                    //EllipseGeometry ellipse = new EllipseGeometry();
+                    //ellipse.RadiusX = radius;
+                    //ellipse.RadiusY = radius;
 
+                    //MapPath mapPath = new MapPath();
+                    //mapPath.Location = new Location(cp_Mass.Latitude,cp_Mass.Longitude);
+                    //mapPath.Data = ellipse;
+                    //red_Item.Add(mapPath);
+                }
                 Location point = new(cp_Mass.Latitude, cp_Mass.Longitude);
+
+                //if (collection is red_Masses)
+                //{
+                //    if (point.Longitude < red_Min)
+                //    { red_Min = point.Longitude;
+                //       //вставить в начало коллекции
+                //    }
+                //}
+
                 collection?.Add(point);
-
             }
+            //EllipseGeometry ellipse1 = new EllipseGeometry();
+            //ellipse1.RadiusX = 10000;
+            //ellipse1.RadiusY = 10000;
+            //MapPath mapPath1 = new MapPath();
+            //mapPath1.Location = new Location(-48.96545, -138.37523);
+            //mapPath1.Data = ellipse1;
+            //red_Item.Add(mapPath1);
 
-            OnPropertyChanged(nameof(green_Masses));
-            OnPropertyChanged(nameof(yellow_Masses));
-            OnPropertyChanged(nameof(orange_Masses));
+            //OnPropertyChanged(nameof(green_Masses));
+            //OnPropertyChanged(nameof(yellow_Masses));
+            //OnPropertyChanged(nameof(orange_Masses));
+
+            Location point1 = new(-48.96545, -138.37523);
+            red_Masses.Add(point1);
             OnPropertyChanged(nameof(red_Masses));
+            //OnPropertyChanged(nameof(red_Item));
         }
-        ///Расчетный модуль по 2 точкам (проверка на кол-во точек в функции во ViewModel)
-        // вызываться будет либо Calc1 либо Calc2)
     }
 }
 
