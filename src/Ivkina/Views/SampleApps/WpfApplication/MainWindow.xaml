@@ -149,13 +149,13 @@
                                  SelectionMode="Extended">
             </map:MapItemsControl>
 
-            <map:MapPath Location="{Binding red_Masses}" Stroke="Red" StrokeThickness="3" Fill="Red">
-                <map:MapPath.Data>
-                    <EllipseGeometry RadiusX="1000" RadiusY="1000"/>
-                </map:MapPath.Data>
-            </map:MapPath>
-            
-            <!--<map:MapItemsControl ItemsSource="{Binding red_Item}">
+            <!--<map:MapPath Location="{Binding red_Masses}" Stroke="Red" StrokeThickness="3" Fill="Red" Opacity="0.3">
+            <map:MapPath.Data>
+                <EllipseGeometry RadiusX="1000" RadiusY="1000"/>
+            </map:MapPath.Data>
+            </map:MapPath>-->
+
+                <!--<map:MapItemsControl ItemsSource="{Binding red_Item}">
                 <map:MapPath Stroke="Red" StrokeThickness="3" Fill="Red"/>
             </map:MapItemsControl>-->
 
