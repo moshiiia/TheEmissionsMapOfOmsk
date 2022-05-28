@@ -167,5 +167,15 @@ namespace SampleApplication
             Help help = new Help();
             help.Show();
         }
+
+        private void listTopics_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void listTopics_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace ViewModels
         public ObservableCollection<PolylineItem> Polylines { get; } = new();
         public ObservableCollection<DataGridCont> DataGridConts { get; } = new();
 
+        public ObservableCollection<MapPolygon> Polygons { get; } = new();
+
         private const Owner Ivkina = Owner.Ivkina;
         private readonly DataManager data;
         public IErrorHandler? Handler { get; set; }
@@ -90,14 +92,52 @@ namespace ViewModels
             public double Longitude { get; set; }
             public double Amount { get; set; }
         }
-        List<Cp_mass> cp_Masses = new List<Cp_mass>();
+        List<List<Cp_mass>> cp_Masses = new List<List<Cp_mass>>();
 
+        double rangem = 100;
         double[] wR = new double[] { 6.8, 9.1, 10.9, 4.5, 21.1, 30.7, 6.4, 4.0 }; //роза ветров
         double fi; //угол в градусах
         double r; //расстояние
         double xist = 55.000302; //координаты источника(ТЭЦ-5 г.Омск)
         double yist = 73.487259;
 
+        public static double calculateTheDistance(double latA, double lngA, double latB, double lngB)
+        {
+            //Радиус земли
+            double earthRadius = 6372795;
+
+            // перевести координаты в радианы
+            double lat1 = latA * Math.PI / 180;
+            double lng1 = lngA * Math.PI / 180;
+            double lat2 = latB * Math.PI / 180;
+            double lng2 = lngB * Math.PI / 180;
+
+            //double dy = lat2 - lat1;
+            //double dx = Math.Cos(Math.PI / 180 * lat1) * (lng2 - lng1);
+            //double angel = Math.Atan2(dy, dx);
+            //double gAngel = angel * 180 / Math.PI;
+
+            // косинусы и синусы широт и разницы долгот
+            double cl1 = Math.Cos(lat1);
+            double cl2 = Math.Cos(lat2);
+            double sl1 = Math.Sin(lat1);
+            double sl2 = Math.Sin(lat2);
+            double delta = lng2 - lng1;
+            double cdelta = Math.Cos(delta);
+            double sdelta = Math.Sin(delta);
+
+            //double angel = Math.Atan2(cl1 * sdelta, cl1 * sl2 - sl1 * cl2 * cdelta);
+            //double gAngel = angel * 180 / Math.PI;
+
+            // вычисления длины большого круга
+            double y = Math.Sqrt(Math.Pow(cl1 * sdelta, 2) + Math.Pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
+            double x = sl1 * sl2 + cl1 * cl2 * cdelta;
+
+            double ad = Math.Atan2(y, x);
+            double dist = ad * earthRadius;
+
+            return dist;
+        }
         public double CountFi(double fi)
         {
             if (fi < 0) fi = fi + 360;
@@ -141,21 +181,6 @@ namespace ViewModels
             double x = slist * slpoint + clist * clpoint * cdelta;
             double ad = Math.Atan2(y, x);
             r = (ad * earthRadius)/1000; //в км  
-
-            //double a = 6378.1370; //экваториальный радиус конст
-            //double b = 6356.8; //полярный радиус конст
-            //double e = (Math.Pow(a, 2) - Math.Pow(b, 2)) / Math.Pow(a, 2); //квадрат первого эксцентриситета эллипсоида                         
-            //double N = a / Math.Sqrt(1 - e * Math.Pow(Math.Sin(latitude), 2)); //радиус кривизны первого вертикала 
-            ////переход от географ.координат к декарт.
-            //double x = N * Math.Cos(latitude) * Math.Cos(longitude);
-            //double y = N * Math.Cos(latitude) * Math.Sin(longitude);
-            //return new(x, y);
-            //}
-            //public (double, double) R_Fi_Count(double x, double y)
-            //{
-            //переход от декарт.координат к полярным
-            //r = Math.Sqrt(Math.Pow(x - xist, 2) + Math.Pow(y - yist, 2));
-            //fi = Math.Atan((y - yist) / (x - xist)) * 57.296;  //радианы или градусы??
             return new(r, fi);
         }
 
@@ -163,7 +188,6 @@ namespace ViewModels
         public void CountMathModel2(List<(double lat, double longitude, double amount)> points)
         {
             cp_Masses.Clear();
-            //?отчистка cp_masses перед расчетами и в ММ1
             double mnk = 0, mnk1 = 10000000000000;
             double Cp1buf = 0, Cp2buf = 0, Cp3buf = 0;
             double Cp1, Cp2, Cp3, Cp_point;
@@ -204,27 +228,29 @@ namespace ViewModels
                     }
                 }
             }
-            var djf = mnk1;
-            
-           
-            for (double x = 54.941745; x < 55.042831; x += 0.1)
+
+            double dist = calculateTheDistance(54.941745, 73.258271, 55.042831, 73.258271);
+            double incrementX = Math.Abs((54.941745 - 55.042831) / (dist / rangem));
+            dist = calculateTheDistance(54.941745, 73.258271, 54.941745, 73.598211);
+            double incrementY = Math.Abs((73.258271 - 73.598211) / (dist / rangem));
+            int numbx = 0;
+            for (double x = 54.941745; x < 55.042831; x += incrementX)
             {
-                for (double y = 73.258271; y < 73.598211; y += 0.001)
+                cp_Masses.Add(new List<Cp_mass>());
+                for (double y = 73.258271; y < 73.598211; y += incrementY)
                 {
-                    //переводим координаты в декартовые для расчета
-                    //(double xdec, double ydec) = GeoToDec(x, y);
                     (double r_point, double fi_point) = GeoToPol(x, y);
                     Cp_point = RoseFunc(CountFi(fi_point)) * q1 * Math.Pow(r_point, q2) * Math.Exp(-q3 / r_point);
                     Cp_mass cp_Mass = new Cp_mass();
                     cp_Mass.Latitude = x;
                     cp_Mass.Longitude = y;
                     cp_Mass.Amount = Cp_point;
-                    cp_Masses.Add(cp_Mass);
+                    cp_Masses[numbx].Add(cp_Mass);
                 }
+                numbx++;
             }
             var b = cp_Masses.Count();
         }
-
         /////////////////////// ММ1 по 2-ум точкам проверить
         public void CountMathModel1(List<(double lat, double longitude, double amount)> points)
         {
@@ -260,11 +286,17 @@ namespace ViewModels
                     mnk = 0;
                 }
             }
-            var djf = mnk1;
+          
+            double dist = calculateTheDistance(54.941745, 73.258271, 55.042831, 73.258271);
+            double incrementX = Math.Abs((54.941745 - 55.042831) / (dist / rangem));
+            dist = calculateTheDistance(54.941745, 73.258271, 54.941745, 73.598211);
+            double incrementY = Math.Abs((73.258271 - 73.598211) / (dist / rangem));
 
-            for (double x = 54.941745; x < 55.042831; x += 0.1)
+            int numbx = 0;
+            for (double x = 54.941745; x < 55.042831; x += incrementX)
             {
-                for (double y = 73.258271; y < 73.598211; y += 0.001)
+                cp_Masses.Add(new List<Cp_mass>());
+                for (double y = 73.258271; y < 73.598211; y += incrementY)
                 {
                     //переводим координаты для расчета
                     (double r_point, double fi_point) = GeoToPol(x, y);
@@ -274,95 +306,156 @@ namespace ViewModels
                     cp_Mass.Latitude = x;
                     cp_Mass.Longitude = y;
                     cp_Mass.Amount = Cp_point;
-                    cp_Masses.Add(cp_Mass);
+                    //cp_Masses.Add(cp_Mass);
+                    cp_Masses[numbx].Add(cp_Mass);
                 }
+                numbx++;
             }
             //var b = cp_Masses.Count();
         }
        
-        //public List<Location> green_Masses { get; set; } = new();
-        //public List<Location> yellow_Masses { get; set; } = new();
-        //public List<Location> orange_Masses { get; set; } = new();
         public List<Location> red_Masses { get; set; } = new();
         public List<double> amounts { get; set; } = new();
-        //public List<MapPath> red_Item { get; set; } = new();
-        public void DrawPolygon(List<Cp_mass> cp_Masses)
+
+        public void DrawPolygon(List<List<Cp_mass>> cp_Masses)
         {
-            //green_Masses.Clear();
-            //yellow_Masses.Clear();
-            //orange_Masses.Clear();
-            red_Masses.Clear();
+            double minval=999999, maxval=0;
+            Polygons.Clear();
 
-            // double red_Min=0, red_Max=0;
+            List<Color> color = new List<Color>();
+            color.Add(Colors.Green);
+            color.Add(Colors.Yellow);
+            color.Add(Colors.DarkOrange);
+            color.Add(Colors.Red);
 
-            //red_Item.Clear();
-            foreach (Cp_mass cp_Mass in cp_Masses)
+
+            double dist = calculateTheDistance(54.941745, 73.258271, 55.042831, 73.258271);
+            double incrementX = Math.Abs((54.941745 - 55.042831) / (dist / rangem));
+            dist = calculateTheDistance(54.941745, 73.258271, 54.941745, 73.598211);
+            double incrementY = Math.Abs((73.258271 - 73.598211) / (dist / rangem));
+            foreach (List<Cp_mass> mass1 in cp_Masses)
             {
-
-                ICollection<Location>? collection = null;
-
-                //if (cp_Mass.Amount < 2000)
-                //{
-                //    collection = green_Masses;
-
-                //}
-
-                //if (cp_Mass.Amount >= 2000 && cp_Mass.Amount < 4200)
-                //{
-                //    collection = yellow_Masses;
-                //}
-
-                //if (cp_Mass.Amount >= 4200 && cp_Mass.Amount < 4900)
-                //{
-                //    collection = orange_Masses;
-                //}
-
-                //ICollection<MapPath>? collection = null;
-                if (cp_Mass.Amount < 5000)
+                foreach (Cp_mass cp_Mass in mass1)
                 {
-                    //collection = red_Item;
-                    //int radius = 1000;
-                    //EllipseGeometry ellipse = new EllipseGeometry();
-                    //ellipse.RadiusX = radius;
-                    //ellipse.RadiusY = radius;
-
-                    //MapPath mapPath = new MapPath();
-                    //mapPath.Location = new Location(cp_Mass.Latitude,cp_Mass.Longitude);
-                    //mapPath.Data = ellipse;
-                    //red_Item.Add(mapPath);
-                    Location point = new(cp_Mass.Latitude, cp_Mass.Longitude);
-                    red_Masses.Add(point);
-                    amounts.Add(cp_Mass.Amount);
+                    if (cp_Mass.Amount > maxval)
+                    {
+                        maxval = cp_Mass.Amount;
+                    }
+                    if (cp_Mass.Amount < minval)
+                    {
+                        minval = cp_Mass.Amount;
+                    }
                 }
 
-                //collection?.Add(point);
-                //if (collection is red_Masses)
-                //{
-                //    if (point.Longitude < red_Min)
-                //    { red_Min = point.Longitude;
-                //       //вставить в начало коллекции
-                //    }
-                //}
-
-
             }
-            //EllipseGeometry ellipse1 = new EllipseGeometry();
-            //ellipse1.RadiusX = 10000;
-            //ellipse1.RadiusY = 10000;
-            //MapPath mapPath1 = new MapPath();
-            //mapPath1.Location = new Location(-48.96545, -138.37523);
-            //mapPath1.Data = ellipse1;
-            //red_Item.Add(mapPath1);
+            double range = (maxval - minval) / color.Count;
 
-            //OnPropertyChanged(nameof(green_Masses));
-            //OnPropertyChanged(nameof(yellow_Masses));
-            //OnPropertyChanged(nameof(orange_Masses));
 
-            Location point1 = new(55.000302,73.487259);
-            red_Masses.Add(point1);
+            foreach (List<Cp_mass> mass1 in cp_Masses)
+            {
+                bool check = false;
+                int colorbuf1 = -1;
+                for (int i = 0; i < color.Count; i++)
+                {
+                    if (mass1[0].Amount <= minval + (range * (i + 1)))
+                    {
+                        colorbuf1 = i;
+                        break;
+                    }
+
+                }
+                if (colorbuf1 == -1)
+                {
+                    colorbuf1 = color.Count - 1;
+                }
+
+                double firstpos = mass1[0].Longitude;
+                double lastpos = 0;
+                foreach (Cp_mass cp_Mass in mass1)
+                {
+                    int colorbuf2 = -1;
+
+                    for (int i = 0; i < color.Count; i++)
+                    {
+                        if (cp_Mass.Amount <= minval + (range * (i + 1)))
+                        {
+                            colorbuf2 = i;
+                            break;
+                        }
+
+                    }
+                    if (colorbuf2 == -1)
+                    {
+                        colorbuf2 = color.Count - 1;
+                    }
+
+                    if (colorbuf1 != colorbuf2)
+                    {
+                        MapPolygon polygon1 = new MapPolygon();
+                        polygon1.Fill = new SolidColorBrush(color[colorbuf1]);
+                        polygon1.Stroke = new SolidColorBrush(Colors.Green);
+                        polygon1.StrokeThickness = 0;
+                        polygon1.Opacity = 0.7;
+                        polygon1.Locations = new LocationCollection() {
+                                new Location(cp_Mass.Latitude, firstpos),
+                                new Location(cp_Mass.Latitude+incrementX, firstpos),
+                                new Location(cp_Mass.Latitude+incrementX, cp_Mass.Longitude+incrementY),
+                                new Location(cp_Mass.Latitude, cp_Mass.Longitude+incrementY)};
+                        Polygons.Add(polygon1);
+                        firstpos = cp_Mass.Longitude+incrementY;
+                        colorbuf1 = colorbuf2;
+                    }
+                    lastpos = cp_Mass.Latitude;
+
+                    //for (int i = 0; i < color.Count; i++)
+                    //{
+                    //    if (cp_Mass.Amount <= minval + (range * (i + 1)))
+                    //    {
+                    //        MapPolygon polygon = new MapPolygon();
+                    //        polygon.Fill = new SolidColorBrush(color[i]);
+                    //        polygon.Stroke = new SolidColorBrush(Colors.Green);
+                    //        polygon.StrokeThickness = 0;
+                    //        polygon.Opacity = 0.7;
+                    //        polygon.Locations = new LocationCollection() {
+                    //        new Location(cp_Mass.Latitude, cp_Mass.Longitude),
+                    //        new Location(cp_Mass.Latitude+incrementX, cp_Mass.Longitude),
+                    //        new Location(cp_Mass.Latitude+incrementX, cp_Mass.Longitude+incrementY),
+                    //        new Location(cp_Mass.Latitude, cp_Mass.Longitude+incrementY)};
+                    //        Polygons.Add(polygon);
+                    //        check = true;
+                    //        break;
+                    //    }
+
+                    //}
+                    //if (check == false)
+                    //{
+                    //    MapPolygon polygon = new MapPolygon();
+                    //    polygon.Fill = new SolidColorBrush(color[color.Count - 1]);
+                    //    polygon.Stroke = new SolidColorBrush(Colors.Green);
+                    //    polygon.StrokeThickness = 0;
+                    //    polygon.Opacity = 0.7;
+                    //    polygon.Locations = new LocationCollection() {
+                    //    new Location(cp_Mass.Latitude, cp_Mass.Longitude),
+                    //    new Location(cp_Mass.Latitude+incrementX, cp_Mass.Longitude),
+                    //    new Location(cp_Mass.Latitude+incrementX, cp_Mass.Longitude+incrementY),
+                    //    new Location(cp_Mass.Latitude, cp_Mass.Longitude+incrementY)};
+                    //    Polygons.Add(polygon);
+                    //}
+                }
+                MapPolygon polygon = new MapPolygon();
+                polygon.Fill = new SolidColorBrush(color[colorbuf1]);
+                polygon.Stroke = new SolidColorBrush(Colors.Green);
+                polygon.StrokeThickness = 0;
+                polygon.Opacity = 0.7;
+                polygon.Locations = new LocationCollection() {
+                                new Location(lastpos, firstpos),
+                                new Location(lastpos+incrementX, firstpos),
+                                new Location(lastpos+incrementX, 73.598211+incrementY),
+                                new Location(lastpos, 73.598211+incrementY)};
+                Polygons.Add(polygon);
+            }
             var b = amounts;
             OnPropertyChanged(nameof(red_Masses));
-            //OnPropertyChanged(nameof(red_Item));
         }
     }
 }

@@ -136,6 +136,11 @@
             <map:MapItemsControl ItemsSource="{Binding Pushpins}"
                                  ItemContainerStyle="{StaticResource PushpinItemStyle}" Margin="0,4,-66,-143"
             />
+
+            <map:MapItemsControl ItemsSource="{Binding Polygons}"
+                                
+            />
+
             <map:Pushpin Location="55.000810,73.487318" Content="" Background="DarkBlue"/>
 
             <!--<map:MapPath Location="54.919552, 73.178293" Stroke="Blue" StrokeThickness="3" Fill="#1F007F00">
@@ -149,20 +154,6 @@
                                  SelectionMode="Extended">
             </map:MapItemsControl>
 
-            <!--<map:MapPath Location="{Binding red_Masses}" Stroke="Red" StrokeThickness="3" Fill="Red" Opacity="0.3">
-            <map:MapPath.Data>
-                <EllipseGeometry RadiusX="1000" RadiusY="1000"/>
-            </map:MapPath.Data>
-            </map:MapPath>-->
-
-                <!--<map:MapItemsControl ItemsSource="{Binding red_Item}">
-                <map:MapPath Stroke="Red" StrokeThickness="3" Fill="Red"/>
-            </map:MapItemsControl>-->
-
-            <!--<map:MapItemsControl ItemsSource="{Binding red_Masses}"/>
-            <map:MapItemsControl ItemsSource="{Binding yellow_Masses}"/>
-            <map:MapItemsControl ItemsSource="{Binding orange_Masses}"/>
-            <map:MapItemsControl ItemsSource="{Binding green_Masses}"/>-->
         </map:Map>
 
         <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#AFFFFFFF" Height="7" Margin="0,0,0,1" Width="146">
@@ -219,15 +210,7 @@
                     </Binding>
                 </Button.Visibility>
             </Button>
-
-
-            <!--пример команды-->
-            <!--<Button Content="Button"
-                    Command="{Binding TestCommand }"
-                    CommandParameter="{Binding ElementName=Points, Path=Items}"/>-->
         </StackPanel>
-
-
 
         <Canvas HorizontalAlignment="Left" Height="554" Margin="-208,0,0,0" VerticalAlignment="Top" Width="209" Background="#FF9D9DA0" Grid.RowSpan="2">
             <Button Content="Data Base" Canvas.Left="38" Canvas.Top="73" Height="41" Width="146" Background="#FFB8B9CA" FontWeight="Bold" FontSize="14" Click="Button_Click"/>
@@ -238,7 +221,7 @@
 
         <Canvas Margin="0,15,0,-123" Grid.Row="1" Background="#FFB8B9CA" >
             <ListBox
-                ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26">
+                ItemsSource="{Binding Points}" Height="82" Name="listTopics" Width="481" Background="#0B000000" Canvas.Top="26" SelectionChanged="listTopics_SelectionChanged_1">
                 <ListBox.ItemTemplate>
                     <HierarchicalDataTemplate>
                         <CheckBox 
