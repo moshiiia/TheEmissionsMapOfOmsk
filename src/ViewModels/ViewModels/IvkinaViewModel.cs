@@ -118,7 +118,7 @@ namespace ViewModels
         }
         public (double, double) GeoToPol(double latitude, double longitude)//пересчитать х и у 
         {
-            double earthRadius = 6371; //Радиус земли км
+            double earthRadius = 6371000; //Радиус земли км
             // перевести координаты в радианы
             double latist = xist * Math.PI / 180;
             double lngist = yist * Math.PI / 180;
@@ -162,47 +162,50 @@ namespace ViewModels
         /////////////////////// ММ2 по 3-ем точкам
         public void CountMathModel2(List<(double lat, double longitude, double amount)> points)
         {
+            cp_Masses.Clear();
+            //?отчистка cp_masses перед расчетами и в ММ1
             double mnk = 0, mnk1 = 10000000000000;
+            double Cp1buf = 0, Cp2buf = 0, Cp3buf = 0;
             double Cp1, Cp2, Cp3, Cp_point;
-            double q1, q2, q3; //q для рассчета
-            double Q1 = 0, Q2 = 0, Q3 = 0; //Q итоговые
+            double q1=0, q2=0, q3=0; 
+            double tet1, tet2, tet3;
 
-            for (q1 = 100; q1 < 1000; q1=q1+100)
+
+            for (tet1 = 1; tet1 < 1000; tet1 += 10)
             {
-                for (q2 = -10; q2 < -1; q2=q2+0.01) 
+                for (tet2 = -2; tet2 < 2; tet2 += 0.01)
                 {
-                    for (q3 = 1; q3 < 100; q3++)
+                    for (tet3 = 0.1; tet3 < 1; tet3+=0.001)
                     {
                         var d = points[0].amount;
                         //(double x1, double y1) = GeoToDec(points[0].lat, points[0].longitude);
                         //(double r2, double fi2) = R_Fi_Count(x2, y2);
-                        
+                       
                         (double r1, double fi1) = GeoToPol(points[0].lat, points[0].longitude);
                         (double r2, double fi2) = GeoToPol(points[1].lat, points[1].longitude);
-                        //(double r2, double fi2) = R_Fi_Count(x2, y2);
-
                         (double r3, double fi3) = GeoToPol(points[2].lat, points[2].longitude);
-                        //(double r3, double fi3) = R_Fi_Count(x3, y3);
+                        
+                        Cp1 = RoseFunc(CountFi(fi1)) * tet1 * Math.Pow(r1, tet2) * Math.Exp(-tet3 / r1);
+                        Cp2 = RoseFunc(CountFi(fi2)) * tet1 * Math.Pow(r2, tet2) * Math.Exp(-tet3 / r2);
+                        Cp3 = RoseFunc(CountFi(fi3)) * tet1 * Math.Pow(r3, tet2) * Math.Exp(-tet3 / r3);
 
-                        Cp1 = RoseFunc(CountFi(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-q1 / r1);
-                        Cp2 = RoseFunc(CountFi(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-q2 / r2);
-                        Cp3 = RoseFunc(CountFi(fi3)) * q3 * Math.Pow(r3, q3) * Math.Exp(-q3 / r3);
-
-
-                        mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2) + Math.Pow(Cp3 - points[2].amount, 2);
-
+                       mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2) + Math.Pow(Cp3 - points[2].amount, 2);
                         if (mnk < mnk1)
                         {
                             mnk1 = mnk;
-                            Q1 = q1; 
-                            Q2 = q2;//зануляет
-                            Q3 = q3;
+                            q1 = tet1; 
+                            q2 = tet2;
+                            q3 = tet3;
+                            Cp1buf = Cp1;
+                            Cp2buf = Cp2;
+                            Cp3buf = Cp3;
                         }
                         mnk = 0;
                     }
                 }
             }
             var djf = mnk1;
+            
            
             for (double x = 54.941745; x < 55.042831; x += 0.1)
             {
@@ -211,9 +214,7 @@ namespace ViewModels
                     //переводим координаты в декартовые для расчета
                     //(double xdec, double ydec) = GeoToDec(x, y);
                     (double r_point, double fi_point) = GeoToPol(x, y);
-
-                    Cp_point = RoseFunc(CountFi(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-Q3 / r_point);
-
+                    Cp_point = RoseFunc(CountFi(fi_point)) * q1 * Math.Pow(r_point, q2) * Math.Exp(-q3 / r_point);
                     Cp_mass cp_Mass = new Cp_mass();
                     cp_Mass.Latitude = x;
                     cp_Mass.Longitude = y;
@@ -224,45 +225,50 @@ namespace ViewModels
             var b = cp_Masses.Count();
         }
 
-        /////////////////////// ММ1 по 2-ум точкам
+        /////////////////////// ММ1 по 2-ум точкам проверить
         public void CountMathModel1(List<(double lat, double longitude, double amount)> points)
         {
+            cp_Masses.Clear();
             double mnk = 0, mnk1 = 10000000000000;
+            double Cp1buf = 0, Cp2buf = 0;
             double Cp1, Cp2, Cp_point;
-            double q1, q2; //q для рассчета
-            double Q1 = 0, Q2 = 0; //Q итоговые
+            double q1=0, q2=0; 
+            double tet1 = 0, tet2 = 0; 
             double rmax = 4.125; //км
 
-            for (q1 = 100; q1 < 1000; q1 = q1 + 100)
+            for (tet1 = 1; tet1 < 10000; tet1 += 1)
             {
-                for (q2 = -10; q2 < -1; q2 = q2 + 0.01)
+                for (tet2 = -2; tet2 < 2; tet2 +=0.01)
                 {
                     var d = points[0].amount; 
                     (double r1, double fi1) = GeoToPol(points[0].lat, points[0].longitude);
                     (double r2, double fi2) = GeoToPol(points[1].lat, points[1].longitude);
 
-                    Cp1 = RoseFunc(CountFi(fi1)) * q1 * Math.Pow(r1, q2) * Math.Exp(-2 * rmax / r1);
-                    Cp2 = RoseFunc(CountFi(fi2)) * q2 * Math.Pow(r2, q2) * Math.Exp(-2 * rmax / r2);
+                    Cp1 = RoseFunc(CountFi(fi1)) * tet1 * Math.Pow(r1, tet2) * Math.Exp(-2 * rmax / r1);
+                    Cp2 = RoseFunc(CountFi(fi2)) * tet1 * Math.Pow(r2, tet2) * Math.Exp(-2 * rmax / r2);
 
                     mnk = Math.Pow(Cp1 - points[0].amount, 2) + Math.Pow(Cp2 - points[1].amount, 2);
 
                     if (mnk < mnk1)
                     {
                         mnk1 = mnk;
-                        Q1 = q1; //почему значение не переприсваевается
-                        Q2 = q2;
+                        q1 = tet1; 
+                        q2 = tet2;
+                        Cp1buf = Cp1;
+                        Cp2buf = Cp2;
                     }
                     mnk = 0;
                 }
             }
+            var djf = mnk1;
 
             for (double x = 54.941745; x < 55.042831; x += 0.1)
             {
                 for (double y = 73.258271; y < 73.598211; y += 0.001)
                 {
-                    //переводим координаты в декартовые для расчета
+                    //переводим координаты для расчета
                     (double r_point, double fi_point) = GeoToPol(x, y);
-                    Cp_point = RoseFunc(CountFi(fi_point)) * Q1 * Math.Pow(r_point, Q2) * Math.Exp(-2 * rmax * 1000 / r_point);
+                    Cp_point = RoseFunc(CountFi(fi_point)) * q1 * Math.Pow(r_point, q2) * Math.Exp(-2 * rmax / r_point);
 
                     Cp_mass cp_Mass = new Cp_mass();
                     cp_Mass.Latitude = x;
@@ -298,6 +304,7 @@ namespace ViewModels
                 //if (cp_Mass.Amount < 2000)
                 //{
                 //    collection = green_Masses;
+
                 //}
 
                 //if (cp_Mass.Amount >= 2000 && cp_Mass.Amount < 4200)
