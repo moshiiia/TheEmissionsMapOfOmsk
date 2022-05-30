@@ -2,6 +2,7 @@
 using MapControl.Caching;
 using MapControl.UiTools;
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices.ComTypes;
@@ -176,6 +177,12 @@ namespace SampleApplication
         private void listTopics_SelectionChanged_1(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            
+            
         }
     }
 }

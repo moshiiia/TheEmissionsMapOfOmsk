@@ -22,6 +22,7 @@ namespace ViewModels
         public ObservableCollection<DataGridCont> DataGridConts { get; } = new();
 
         public ObservableCollection<MapPolygon> Polygons { get; } = new();
+        public string Colorsval { get; set; } 
 
         private const Owner Ivkina = Owner.Ivkina;
         private readonly DataManager data;
@@ -321,13 +322,13 @@ namespace ViewModels
         {
             double minval=999999, maxval=0;
             Polygons.Clear();
+            Colorsval="";
 
             List<Color> color = new List<Color>();
             color.Add(Colors.Green);
             color.Add(Colors.Yellow);
             color.Add(Colors.DarkOrange);
             color.Add(Colors.Red);
-
 
             double dist = calculateTheDistance(54.941745, 73.258271, 55.042831, 73.258271);
             double incrementX = Math.Abs((54.941745 - 55.042831) / (dist / rangem));
@@ -350,6 +351,8 @@ namespace ViewModels
             }
             double range = (maxval - minval) / color.Count;
 
+            Colorsval = ": 0-"+Math.Round(range,2)+"\n: "+ Math.Round(range,2) +"-"+ Math.Round(range *2,2)+ "\n: " + Math.Round(range *2,2) + "-" + Math.Round(range * 3,2) 
+                + "\n: "+ Math.Round(range *3,2) + "-" + Math.Round(range * 4,2);
 
             foreach (List<Cp_mass> mass1 in cp_Masses)
             {

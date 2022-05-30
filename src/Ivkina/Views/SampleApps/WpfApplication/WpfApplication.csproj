@@ -10,6 +10,7 @@
         <Authors>Clemens Fischer</Authors>
         <Copyright>Copyright © 2022 Clemens Fischer</Copyright>
         <DefineConstants></DefineConstants>
+        <ApplicationIcon>icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,6 +34,7 @@
         <Content Include="..\Shared\10_535_330.jpg" Link="10_535_330.jpg">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Include="icon.ico" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='net48'">
