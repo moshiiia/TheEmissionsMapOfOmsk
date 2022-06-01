@@ -6,5 +6,4 @@ public abstract class EntityBase : ValueObject
     {
         yield return Id;
     }
-
 }

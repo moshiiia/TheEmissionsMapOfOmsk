@@ -8,6 +8,5 @@ public interface IPoint
     
     public Task DeleteAsync(Point point);
     public Task UpdateAsync(Point point);
-
 }
 

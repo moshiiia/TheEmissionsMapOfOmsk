@@ -15,7 +15,5 @@
         <Button Content="Close" Canvas.Left="727" Canvas.Top="348"  Height="32" Width="112" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" Click="Button_Click" />
         <Button Content="Save" Canvas.Left="71" Canvas.Top="341"  Height="32" Width="61" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
         <Button Content="Delete" Canvas.Left="161" Canvas.Top="341"  Height="32" Width="61" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
-
     </Canvas>
-
 </Window>

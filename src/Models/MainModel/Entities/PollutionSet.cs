@@ -9,6 +9,5 @@ public class PollutionSet : EntityBase
     public double Amount { get; set; }//общее количество пыли в точке
     public Pollution Pollution { get; set; } = null!;
     public DateTime? DateTime { get; set; }
-
 }
 

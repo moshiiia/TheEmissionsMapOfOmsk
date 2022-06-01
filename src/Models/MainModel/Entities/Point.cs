@@ -11,8 +11,5 @@ public class Point : EntityBase
     public Coordinate Coordinate { get; set; } = null!;
     public int Num { get; set; } //номер точки
     public PollutionSet? PollutionSet { get; set; } 
-   
-    public override string ToString() => Name == null ? String.Empty: Name + " " + Coordinate.ToString();
-
-   
+    public override string ToString() => Name == null ? String.Empty: Name + " " + Coordinate.ToString(); 
 }

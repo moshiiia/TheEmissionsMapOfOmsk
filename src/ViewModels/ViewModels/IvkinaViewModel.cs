@@ -15,12 +15,10 @@ namespace ViewModels
 {
     public class IvkinaViewModel : ViewModelBase.ViewModelBase
     {
-
         public ObservableCollection<PointItem> Points { get; set; }
         public ObservableCollection<PointItem> Pushpins { get; } = new();
         public ObservableCollection<PolylineItem> Polylines { get; } = new();
         public ObservableCollection<DataGridCont> DataGridConts { get; } = new();
-
         public ObservableCollection<MapPolygon> Polygons { get; } = new();
         public string Colorsval { get; set; } 
 
@@ -85,7 +83,6 @@ namespace ViewModels
         public Command CalculationCommand { get; }
         public void RaiseCanCalculationCommand() => CalculationCommand.RaiseCanExecuteChanged();
 
-
         /////////////////////////////////////////////////////////////////// рассчеты
         public class Cp_mass
         {
@@ -96,7 +93,7 @@ namespace ViewModels
         List<List<Cp_mass>> cp_Masses = new List<List<Cp_mass>>();
 
         double rangem = 100;
-        double[] wR = new double[] { 6.8, 9.1, 10.9, 4.5, 21.1, 30.7, 6.4, 4.0 }; //роза ветров
+        double[] wR = new double[] { 6.4, 30.7, 21.1, 4.5, 10.9, 9.1, 6.8, 4.0 }; //роза ветров
         double fi; //угол в градусах
         double r; //расстояние
         double xist = 55.000302; //координаты источника(ТЭЦ-5 г.Омск)
@@ -148,7 +145,7 @@ namespace ViewModels
         public double RoseFunc(double fi)
         {
             if (fi >= 0 && fi <= 45) return (wR[0] + (wR[1] - wR[0]) * (fi) / 45);
-            else if (fi >= 45 && fi <= 90) return (wR[1] + (wR[2] - wR[3]) * (fi - 45) / 45);
+            else if (fi >= 45 && fi <= 90) return (wR[1] + (wR[2] - wR[1]) * (fi - 45) / 45);
             else if (fi >= 90 && fi < 135) return (wR[2] + (wR[3] - wR[2]) * (fi - 90) / 45);
             else if (fi >= 135 && fi <= 180) return (wR[3] + (wR[4] - wR[3]) * (fi - 135) / 45);
             else if (fi >= 180 && fi <= 225) return (wR[4] + (wR[5] - wR[4]) * (fi - 180) / 45);
@@ -195,7 +192,6 @@ namespace ViewModels
             double q1=0, q2=0, q3=0; 
             double tet1, tet2, tet3;
 
-
             for (tet1 = 1; tet1 < 1000; tet1 += 10)
             {
                 for (tet2 = -2; tet2 < 2; tet2 += 0.01)
@@ -229,6 +225,7 @@ namespace ViewModels
                     }
                 }
             }
+            var dgfjgf = mnk1;
 
             double dist = calculateTheDistance(54.941745, 73.258271, 55.042831, 73.258271);
             double incrementX = Math.Abs((54.941745 - 55.042831) / (dist / rangem));
@@ -325,7 +322,10 @@ namespace ViewModels
             Colorsval="";
 
             List<Color> color = new List<Color>();
-            color.Add(Colors.Green);
+            color.Add(Colors.LightGreen);
+            color.Add(Colors.GreenYellow);
+            color.Add(Colors.Lime);
+            color.Add(Colors.Olive);
             color.Add(Colors.Yellow);
             color.Add(Colors.DarkOrange);
             color.Add(Colors.Red);

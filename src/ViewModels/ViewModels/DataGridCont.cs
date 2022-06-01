@@ -15,6 +15,5 @@ namespace ViewModels
         public double Longitude { get; init; }
         public string PollutionName { get; init; }
         public double PollutionAmount { get; init; }
-
     }
 }

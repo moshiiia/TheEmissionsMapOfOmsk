@@ -246,7 +246,6 @@ public class DataManagerTests
         Assert.IsTrue(true);
     }
 
-
     [TestMethod]
     public void InsertPollutionTest()
     {
@@ -258,6 +257,4 @@ public class DataManagerTests
         }).Wait();
         Assert.IsTrue(true);
     }
-
-
 }
