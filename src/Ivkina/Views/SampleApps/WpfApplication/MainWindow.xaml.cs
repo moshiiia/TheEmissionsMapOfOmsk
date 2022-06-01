@@ -9,6 +9,8 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using ViewModels;
 
 namespace SampleApplication
@@ -179,10 +181,36 @@ namespace SampleApplication
 
         }
 
+        int screennum = 1;
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            
-            
+            CreateBitmapFromVisual(this, @"C:\TheEmissionsMapOfOmsk\Screenshots\"+Convert.ToString(screennum) +".bmp");
+            MessageBox.Show("Файл сохранен в C:TheEmissionsMapOfOmsk:Screenshots:' "+Convert.ToString(screennum) +".bmp");
+            screennum++;
+        }
+
+        public static void CreateBitmapFromVisual(Visual target, string fileName)
+        {
+            var bounds = VisualTreeHelper.GetDescendantBounds(target);
+            var renderTarget = new RenderTargetBitmap(
+                (int)bounds.Width,
+                (int)bounds.Height,
+                96,
+                96,
+                PixelFormats.Pbgra32);
+
+            var visual = new DrawingVisual();
+            using (var context = visual.RenderOpen())
+            {
+                var visualBrush = new VisualBrush(target);
+                context.DrawRectangle(visualBrush, null, new Rect(new System.Windows.Point(), bounds.Size));
+            }
+
+            renderTarget.Render(visual);
+            var bitmapEncoder = new BmpBitmapEncoder();
+            bitmapEncoder.Frames.Add(BitmapFrame.Create(renderTarget));
+            using (var stm = File.Create(fileName))
+                bitmapEncoder.Save(stm);
         }
     }
 }

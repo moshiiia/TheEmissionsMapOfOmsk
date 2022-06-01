@@ -225,7 +225,7 @@ namespace ViewModels
                     }
                 }
             }
-            var dgfjgf = mnk1;
+            //var dgfjgf = mnk1;
 
             double dist = calculateTheDistance(54.941745, 73.258271, 55.042831, 73.258271);
             double incrementX = Math.Abs((54.941745 - 55.042831) / (dist / rangem));
