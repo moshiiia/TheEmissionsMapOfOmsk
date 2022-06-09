@@ -27,6 +27,8 @@ namespace SampleApplication
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mv = new MainWindow();
+            mv.Show();
             this.Close();
         }
 

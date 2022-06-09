@@ -10,17 +10,18 @@ using System.Windows.Media;
 using Microsoft.VisualBasic;
 using System.Windows;
 using MapControl;
+using ViewModelBase.Commands.AsyncCommands;
 
 namespace ViewModels
 {
     public class IvkinaViewModel : ViewModelBase.ViewModelBase
     {
         public ObservableCollection<PointItem> Points { get; set; }
-        public ObservableCollection<PointItem> Pushpins { get; } = new();
+        public ObservableCollection<PointItem> Pushpins { get; set; } = new();
         public ObservableCollection<PolylineItem> Polylines { get; } = new();
-        public ObservableCollection<DataGridCont> DataGridConts { get; } = new();
+        public ObservableCollection<DataGridCont> DataGridConts { get; set; } = new();
         public ObservableCollection<MapPolygon> Polygons { get; } = new();
-        public string Colorsval { get; set; } 
+        public string Colorsval { get; set; }
 
         private const Owner Ivkina = Owner.Ivkina;
         private readonly DataManager data;
@@ -28,16 +29,24 @@ namespace ViewModels
 
         private bool isBusy = false;
         public Command<PointItem> AddPointCommand { get; }
+        // public AsyncCommand<IEnumerable<Po>> SaveCommand { get; }
 
         public IvkinaViewModel()
         {
             CalculationCommand = new Command(AddCalculation, CanAddCalculation);
-
+            Update = new AsyncCommand(UpdateAs);
             data = DataManager.Set(EfProvider.SqLite);
 
+           
+
+            UpdateContent();
+        }
+
+        public void UpdateContent()
+        {
             Points = new ObservableCollection<PointItem>(
-                data.Point.Items.Where(i => i.Owner == Ivkina)
-                .Select(p => PointItem.GetPoint(p)));
+              data.Point.Items.Where(i => i.Owner == Ivkina)
+              .Select(p => PointItem.GetPoint(p)));
 
             Pushpins = new ObservableCollection<PointItem>(
                 data.Point.Items.Where(i => i.Owner == Ivkina)
@@ -55,8 +64,12 @@ namespace ViewModels
                     PollutionAmount = p.PollutionSet.Amount
                 }
                 ).OrderBy(y => y.Num));
-        }
 
+
+            OnPropertyChanged(nameof(DataGridCont));
+            OnPropertyChanged(nameof(Points));
+            OnPropertyChanged(nameof(Pushpins));
+        }
         private bool CanAddCalculation()
         {
             var checks = Points.Where(y => y.IsSelected).Count();
@@ -82,6 +95,67 @@ namespace ViewModels
 
         public Command CalculationCommand { get; }
         public void RaiseCanCalculationCommand() => CalculationCommand.RaiseCanExecuteChanged();
+
+
+        private string _ChName = String.Empty;
+        public string ChName
+        {
+            get => _ChName;
+            set => set(ref _ChName, value);
+        }
+
+        private double _ChLat;
+        public double ChLat
+        {
+            get => _ChLat;
+            set => set(ref _ChLat, value);
+        }
+
+        private double _ChLong;
+        public double ChLong
+        {
+            get => _ChLong;
+            set => set(ref _ChLong, value);
+        }
+
+        private double _ChAm;
+        public double ChAm
+        {
+            get => _ChAm;
+            set => set(ref _ChAm, value);
+        }
+
+        public AsyncCommand Update { get; }
+        private async Task UpdateAs()
+        {
+            var IdC = Guid.NewGuid();
+            await data.Coordinate.UpdateAsync(new()
+            {
+                Id = IdC,
+                Latitude = _ChLat,
+                Longitude = _ChLong
+            });
+
+            var IdP = Guid.NewGuid();
+            await data.PollutionSet.UpdateAsync(new()
+            {
+                Id = IdP,
+                Amount = Convert.ToDouble(_ChAm),
+                Pollution = data.Pollution.Items.First(),
+                
+            });
+
+            await data.Point.UpdateAsync(new()
+            {
+                CoordinateId = IdC,
+                PollutionSetId=IdP,
+                Name = _ChName,
+                Num = Points.Count + 1,
+                Owner= Owner.Ivkina
+            }); 
+
+            UpdateContent();
+        }
 
         /////////////////////////////////////////////////////////////////// рассчеты
         public class Cp_mass

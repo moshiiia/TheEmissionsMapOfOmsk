@@ -21,7 +21,7 @@ public class PollutionSetRep : IPollutionSet
 
     public async Task UpdateAsync(PollutionSet pollutionSet)
     {
-        if (pollutionSet.Id == default)
+        if (pollutionSet.Id == default || !context.PollutionSets.Any(p => p.Id == pollutionSet.Id))
         {
             context.Add(pollutionSet);
         }

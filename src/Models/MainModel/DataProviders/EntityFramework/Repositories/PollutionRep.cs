@@ -19,7 +19,7 @@ public class PollutionRep : IPollution
 
     public async Task UpdateAsync(Pollution pollution)
     {
-        if (pollution.Id == default)
+        if (pollution.Id == default || !context.Pollutions.Any(p => p.Id == pollution.Id))
         {
             context.Add(pollution);
         }

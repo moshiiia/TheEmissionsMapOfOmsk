@@ -21,7 +21,7 @@ public class PointRep : IPoint
 
     public async Task UpdateAsync(Point point)
     {
-        if (point.Id == default)
+        if (point.Id == default || !context.Points.Any(p=>p.Id==point.Id))
         {
             context.Add(point);
         }
@@ -32,4 +32,5 @@ public class PointRep : IPoint
         }
         await context.SaveChangesAsync();
     }
+
 }

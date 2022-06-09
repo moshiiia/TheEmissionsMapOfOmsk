@@ -20,7 +20,7 @@ public class CoordinateRep : ICoordinate
 
     public async Task UpdateAsync(Coordinate coordinate)
     {
-        if (coordinate.Id == default)
+        if (coordinate.Id == default || !context.Coordinates.Any(p => p.Id == coordinate.Id))
         {
             context.Add(coordinate);
         }

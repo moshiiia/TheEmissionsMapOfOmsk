@@ -11,9 +11,20 @@
         <vm:IvkinaViewModel/>
     </Window.DataContext>
     <Canvas Margin="0,0,0,-6">
-        <DataGrid Name="grid" Height="324" Width="900" ItemsSource="{Binding DataGridConts}" AutoGenerateColumns="True"/>
-        <Button Content="Close" Canvas.Left="727" Canvas.Top="348"  Height="32" Width="112" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" Click="Button_Click" />
-        <Button Content="Save" Canvas.Left="71" Canvas.Top="341"  Height="32" Width="61" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
-        <Button Content="Delete" Canvas.Left="161" Canvas.Top="341"  Height="32" Width="61" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
+        <DataGrid Name="grid" Height="324" Width="900" ItemsSource="{Binding DataGridConts}" AutoGenerateColumns="True" SelectionMode="Single"/>
+        <Button Content="Close" Canvas.Left="728" Canvas.Top="359"  Height="32" Width="112" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" Click="Button_Click" />
+
+        <Button Content="Save" 
+                Command="{Binding Update}"
+                Canvas.Left="70" Canvas.Top="359"  Height="32" Width="60" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
+        <Button Content="Delete" Canvas.Left="160" Canvas.Top="359"  Height="32" Width="62" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
+
+        <TextBox TextWrapping="Wrap" Text="{Binding ChName}" Canvas.Top="329" Width="143" Name="Text2" Canvas.Left="48"/>
+        <TextBox Canvas.Left="196" TextWrapping="Wrap" Text="{Binding ChLat}" Canvas.Top="329" Width="140" Name="Text3"/>
+        <TextBox Canvas.Left="341" TextWrapping="Wrap" Text="{Binding ChLong}" Canvas.Top="329" Width="145" Name="Text4"/>
+        <TextBox Canvas.Left="491" TextWrapping="Wrap" Text="Пыль" Canvas.Top="329" Width="137" Name="Text5" IsReadOnly="True"/>
+        <TextBox Canvas.Left="633" TextWrapping="Wrap" Text="{Binding ChAm}" Canvas.Top="329" Width="120" Name="Text6"/>
+        <Label Content="Для обновления данных закройте и откройте форму заново." Canvas.Left="249" Canvas.Top="362" FontSize="14"/>
+
     </Canvas>
 </Window>
