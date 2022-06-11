@@ -29,16 +29,13 @@ namespace ViewModels
 
         private bool isBusy = false;
         public Command<PointItem> AddPointCommand { get; }
-        // public AsyncCommand<IEnumerable<Po>> SaveCommand { get; }
 
         public IvkinaViewModel()
         {
             CalculationCommand = new Command(AddCalculation, CanAddCalculation);
             Update = new AsyncCommand(UpdateAs);
+            Delete = new AsyncCommand<DataGridCont?>(DeleteAs, c => c != null);
             data = DataManager.Set(EfProvider.SqLite);
-
-           
-
             UpdateContent();
         }
 
@@ -64,7 +61,6 @@ namespace ViewModels
                     PollutionAmount = p.PollutionSet.Amount
                 }
                 ).OrderBy(y => y.Num));
-
 
             OnPropertyChanged(nameof(DataGridCont));
             OnPropertyChanged(nameof(Points));
@@ -96,7 +92,9 @@ namespace ViewModels
         public Command CalculationCommand { get; }
         public void RaiseCanCalculationCommand() => CalculationCommand.RaiseCanExecuteChanged();
 
+        public void RaiseCanDeleteCommand() => Delete.RaiseCanExecuteChanged();
 
+        /////////////////////////////////////////////////////////////////// кнопки работа с базой
         private string _ChName = String.Empty;
         public string ChName
         {
@@ -154,6 +152,17 @@ namespace ViewModels
                 Owner= Owner.Ivkina
             }); 
 
+            UpdateContent();
+        }
+
+        public AsyncCommand<DataGridCont?> Delete { get; }
+        private async Task DeleteAs(DataGridCont? point)
+        {
+            var p = (data.Point.Items.FirstOrDefault(p => p.Num == point.Num));
+            if (p != null)
+            {
+                await data.Point.DeleteAsync(p);
+            }
             UpdateContent();
         }
 

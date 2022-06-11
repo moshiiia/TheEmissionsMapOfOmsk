@@ -11,13 +11,16 @@
         <vm:IvkinaViewModel/>
     </Window.DataContext>
     <Canvas Margin="0,0,0,-6">
-        <DataGrid Name="grid" Height="324" Width="900" ItemsSource="{Binding DataGridConts}" AutoGenerateColumns="True" SelectionMode="Single"/>
+        <DataGrid x:Name="select" Height="324" Width="900" ItemsSource="{Binding DataGridConts}" AutoGenerateColumns="True" SelectionMode="Single" SelectionChanged="select_SelectionChanged"/>
         <Button Content="Close" Canvas.Left="728" Canvas.Top="359"  Height="32" Width="112" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" Click="Button_Click" />
 
         <Button Content="Save" 
                 Command="{Binding Update}"
                 Canvas.Left="70" Canvas.Top="359"  Height="32" Width="60" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
-        <Button Content="Delete" Canvas.Left="160" Canvas.Top="359"  Height="32" Width="62" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
+        <Button Content="Delete"
+                Command="{Binding Delete}"
+                CommandParameter="{Binding SelectedItem, ElementName=select}"
+                Canvas.Left="160" Canvas.Top="359"  Height="32" Width="62" FontWeight="Bold" Foreground="#000000" FontSize="16" BorderBrush="Black" Background="#FFA8ACC1" />
 
         <TextBox TextWrapping="Wrap" Text="{Binding ChName}" Canvas.Top="329" Width="143" Name="Text2" Canvas.Left="48"/>
         <TextBox Canvas.Left="196" TextWrapping="Wrap" Text="{Binding ChLat}" Canvas.Top="329" Width="140" Name="Text3"/>

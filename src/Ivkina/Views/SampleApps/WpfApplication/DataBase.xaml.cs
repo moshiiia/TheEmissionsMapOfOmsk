@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ViewModels;
 
 namespace SampleApplication
 {
@@ -23,6 +24,7 @@ namespace SampleApplication
         public DataBase()
         {
             InitializeComponent();
+            if (DataContext is IvkinaViewModel) model = (IvkinaViewModel)DataContext;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -32,5 +34,10 @@ namespace SampleApplication
             this.Close();
         }
 
+        IvkinaViewModel model;
+        private void select_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            model?.RaiseCanDeleteCommand();
+        }
     }
 }

@@ -212,5 +212,10 @@ namespace SampleApplication
             using (var stm = File.Create(fileName))
                 bitmapEncoder.Save(stm);
         }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
