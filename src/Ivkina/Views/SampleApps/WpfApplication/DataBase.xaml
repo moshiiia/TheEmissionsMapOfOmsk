@@ -27,7 +27,6 @@
         <TextBox Canvas.Left="341" TextWrapping="Wrap" Text="{Binding ChLong}" Canvas.Top="329" Width="145" Name="Text4"/>
         <TextBox Canvas.Left="491" TextWrapping="Wrap" Text="Пыль" Canvas.Top="329" Width="137" Name="Text5" IsReadOnly="True"/>
         <TextBox Canvas.Left="633" TextWrapping="Wrap" Text="{Binding ChAm}" Canvas.Top="329" Width="120" Name="Text6"/>
-        <Label Content="Для обновления данных закройте и откройте форму заново." Canvas.Left="249" Canvas.Top="362" FontSize="14"/>
 
     </Canvas>
 </Window>

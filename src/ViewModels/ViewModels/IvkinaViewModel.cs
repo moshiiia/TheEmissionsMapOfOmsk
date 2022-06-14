@@ -62,7 +62,7 @@ namespace ViewModels
                 }
                 ).OrderBy(y => y.Num));
 
-            OnPropertyChanged(nameof(DataGridCont));
+            OnPropertyChanged(nameof(DataGridConts));
             OnPropertyChanged(nameof(Points));
             OnPropertyChanged(nameof(Pushpins));
         }
