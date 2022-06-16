@@ -158,7 +158,6 @@ namespace SampleApplication
         {
             DataBase dataBase = new DataBase();
             dataBase.Show();
-            this.Close();
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e) =>
@@ -166,9 +165,9 @@ namespace SampleApplication
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            this.Close();
             Help help = new Help();
             help.Show();
+            this.Close();
         }
 
         private void listTopics_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
