@@ -167,7 +167,6 @@ namespace SampleApplication
         {
             Help help = new Help();
             help.Show();
-            this.Close();
         }
 
         private void listTopics_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
